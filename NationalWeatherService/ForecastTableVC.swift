@@ -19,9 +19,10 @@ class ForecastTableVC: UITableViewController {
         
         ForecastController.weatherBySearchCity("rrr") { (result) -> Void in
             guard let weatherResult = result else { return }
+            self.forecast = weatherResult
             
             dispatch_async(dispatch_get_main_queue()) { () in
-                self.forecast = weatherResult
+                
                 self.tableView.reloadData()
             }
         }

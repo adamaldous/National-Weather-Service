@@ -39,16 +39,18 @@ class Forecast {
             basicDescription = data[Forecast.kBasicDescription] as? [String],
             detailDescription = data[Forecast.kDetailDescription] as? [String],
             imageString = data[Forecast.kImageString] as? [String],
-            date = data[Forecast.KDate] as? [String],
             temp = data[Forecast.kTemp] as? [String] {
             
             self.basicDescription = basicDescription
             self.detailDescription = detailDescription
             self.imageString = imageString
-            self.date = date
             self.temp = temp
         }
         
-        
+        if let time = jsonDictionary["time"] as? [String: AnyObject],
+            date = time[Forecast.KDate] as? [String] {
+            
+            self.date = date
+        }
     }
 }
