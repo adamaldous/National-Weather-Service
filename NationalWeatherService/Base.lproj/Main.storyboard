@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="ifJ-sw-9AI">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="ifJ-sw-9AI">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
@@ -10,38 +10,38 @@
         <scene sceneID="p2W-HX-53o">
             <objects>
                 <tableViewController id="561-vy-OcZ" customClass="ForecastTableVC" customModule="NationalWeatherService" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="60" sectionHeaderHeight="28" sectionFooterHeight="28" id="n8h-uO-nFi">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="70" sectionHeaderHeight="28" sectionFooterHeight="28" id="n8h-uO-nFi">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="forecastCell" rowHeight="60" id="lLS-rY-nXb" customClass="ForecastTableViewCell" customModule="NationalWeatherService" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="92" width="320" height="60"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="forecastCell" rowHeight="70" id="lLS-rY-nXb" customClass="ForecastTableViewCell" customModule="NationalWeatherService" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="92" width="320" height="70"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="lLS-rY-nXb" id="vce-WB-t8d">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="59.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="69.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="z1a-Zb-Sdw">
-                                            <rect key="frame" x="8" y="8" width="43.5" height="43.5"/>
+                                            <rect key="frame" x="8" y="8" width="53.5" height="53.5"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" secondItem="z1a-Zb-Sdw" secondAttribute="height" multiplier="1:1" id="2mH-jt-gt1"/>
                                             </constraints>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DPd-z7-DcF" userLabel="Date">
-                                            <rect key="frame" x="59" y="8" width="201.5" height="21"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Day" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DPd-z7-DcF" userLabel="Date">
+                                            <rect key="frame" x="69" y="8" width="181.5" height="20.5"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bwf-m8-oJf" userLabel="Basic Description">
-                                            <rect key="frame" x="59" y="30" width="201.5" height="21"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Basic Description" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bwf-m8-oJf" userLabel="Basic Description">
+                                            <rect key="frame" x="69.5" y="43.5" width="181" height="18"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NXY-dm-gab" userLabel="HighTemp">
-                                            <rect key="frame" x="268.5" y="8" width="43.5" height="43.5"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Temp" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NXY-dm-gab">
+                                            <rect key="frame" x="258.5" y="8" width="53.5" height="53.5"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" secondItem="NXY-dm-gab" secondAttribute="height" multiplier="1:1" id="szI-uh-mnM"/>
                                             </constraints>
@@ -69,6 +69,7 @@
                                     <outlet property="basicDescriptionLabel" destination="Bwf-m8-oJf" id="igU-mh-XYN"/>
                                     <outlet property="dateLabel" destination="DPd-z7-DcF" id="Jes-il-vpo"/>
                                     <outlet property="forecastImage" destination="z1a-Zb-Sdw" id="jqd-r9-cbY"/>
+                                    <outlet property="tempLabel" destination="NXY-dm-gab" id="RDZ-hD-DZw"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -90,7 +91,7 @@
             </objects>
             <point key="canvasLocation" x="1155" y="392"/>
         </scene>
-        <!--LocationVC-->
+        <!--Select Location-->
         <scene sceneID="3g9-Xo-Ss4">
             <objects>
                 <viewController id="PDG-iB-8zN" customClass="LocationVC" customModule="NationalWeatherService" customModuleProvider="target" sceneMemberID="viewController">
@@ -155,6 +156,9 @@
                             <constraint firstItem="Sth-PQ-fes" firstAttribute="leading" secondItem="Vqu-so-pjI" secondAttribute="leading" constant="20" id="x4S-qT-q0v"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="Select Location" id="MFC-fH-oNQ">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="RZp-aL-nNM"/>
+                    </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qTb-uP-g6g" userLabel="First Responder" sceneMemberID="firstResponder"/>

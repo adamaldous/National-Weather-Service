@@ -13,19 +13,21 @@ class Forecast {
     
     static let kCityName = "productionCenter"
     static let kBasicDescription = "weather"
-    static let kDetailDescription = "description"
-    static let kImageString = "icon"
-    static let KDate = "creationDateLocal"
+    static let kDetailDescription = "text"
+    static let kImageString = "iconLink"
+    static let KDate = "startPeriodName"
+    static let kTemp = "temperature"
     static let kHighTemp = "name"
     static let kLowTemp = ""
     
     var cityName = ""
-    var basicDescription = ""
-    var detailDescription = ""
-    var imageString = ""
-    var date = ""
-    var highTemp = 0
-    var lowTemp = 0
+    var basicDescription: [String] = []
+    var detailDescription: [String] = []
+    var imageString: [String] = []
+    var date: [String] = []
+    var temp: [String] = []
+    var highTemp: [Int] = []
+    var lowTemp: [Int] = []
     
     init(jsonDictionary: [String : AnyObject]) {
         
@@ -33,10 +35,20 @@ class Forecast {
             self.cityName = cityName
         }
         
-        if let data = jsonDictionary["data"] as? [String: AnyObject], weatherArray = data[Forecast.kBasicDescription] as? [String] {
-            if let basicDescription = weatherArray[0] as? String {
-                self.basicDescription = basicDescription
-            }
+        if let data = jsonDictionary["data"] as? [String: AnyObject],
+            basicDescription = data[Forecast.kBasicDescription] as? [String],
+            detailDescription = data[Forecast.kDetailDescription] as? [String],
+            imageString = data[Forecast.kImageString] as? [String],
+            date = data[Forecast.KDate] as? [String],
+            temp = data[Forecast.kTemp] as? [String] {
+            
+            self.basicDescription = basicDescription
+            self.detailDescription = detailDescription
+            self.imageString = imageString
+            self.date = date
+            self.temp = temp
         }
+        
+        
     }
 }
