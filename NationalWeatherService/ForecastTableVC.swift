@@ -37,32 +37,65 @@ class ForecastTableVC: UITableViewController {
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         
-        return 1
+        return 2
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        if let cellForecast = forecast {
-            return cellForecast.basicDescription.count
+        if section == 0 {
+        
+        return 1
         } else {
-            return 13
+            if let cellForecast = forecast {
+                return cellForecast.basicDescription.count
+            } else {
+                return 13
+            }
         }
     }
     
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("forecastCell", forIndexPath: indexPath) as! ForecastTableViewCell
+        
+        if indexPath.section == 0 {
+        
+        
+        
+        let cell = tableView.dequeueReusableCellWithIdentifier("currentWeatherCell", forIndexPath: indexPath) as! CurrentWeatherTableViewCell
         
         if let cellForecast = forecast {
             
-            cell.dateLabel.text = cellForecast.date[indexPath.row]
-            cell.basicDescriptionLabel.text = cellForecast.basicDescription[indexPath.row]
-            cell.tempLabel.text = cellForecast.temp[indexPath.row]
-            
-            cell.forecastImage.image = UIImage(named: "Location")
+//            cell.dateLabel.text = cellForecast.date[indexPath.row]
+//            cell.basicDescriptionLabel.text = cellForecast.basicDescription[indexPath.row]
+//            cell.tempLabel.text = cellForecast.temp[indexPath.row]
+//            
+//            cell.forecastImage.image = UIImage(named: "Location")
         }
         
         return cell
+            
+        } else {
+            
+            let cell = tableView.dequeueReusableCellWithIdentifier("forecastCell", forIndexPath: indexPath) as! ForecastTableViewCell
+            
+            if let cellForecast = forecast {
+                
+                cell.dateLabel.text = cellForecast.date[indexPath.row]
+                cell.basicDescriptionLabel.text = cellForecast.basicDescription[indexPath.row]
+                cell.detailDescriptionLabel.text = cellForecast.detailDescription[indexPath.row]
+                cell.tempLabel.text = cellForecast.temp[indexPath.row]
+                
+                cell.forecastImage.image = UIImage(named: "Location")
+            }
+            
+            return cell
+
+        }
+        
+    }
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
     }
     
     

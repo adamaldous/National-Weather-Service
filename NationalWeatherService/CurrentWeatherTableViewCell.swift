@@ -1,22 +1,20 @@
 //
-//  ForecastTableViewCell.swift
+//  CurrentWeatherTableViewCell.swift
 //  NationalWeatherService
 //
-//  Created by Adam Aldous on 3/22/16.
+//  Created by Adam Aldous on 3/24/16.
 //  Copyright © 2016 Adam Aldous. All rights reserved.
 //
 
 import UIKit
 
-class ForecastTableViewCell: UITableViewCell {
-    
-    @IBOutlet weak var forecastImage: UIImageView!
-    @IBOutlet weak var dateLabel: UILabel!
-    @IBOutlet weak var basicDescriptionLabel: UILabel!
-    @IBOutlet weak var tempLabel: UILabel!
-    @IBOutlet weak var detailDescriptionLabel: UILabel!
-    
+class CurrentWeatherTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var currentWeatherImage: UIImageView!
+    @IBOutlet weak var currentBasicDescriptionLabel: UILabel!
+    @IBOutlet weak var currentTempLabel: UILabel!
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -28,6 +26,4 @@ class ForecastTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
 
-    
-   // func updateWith(
 }

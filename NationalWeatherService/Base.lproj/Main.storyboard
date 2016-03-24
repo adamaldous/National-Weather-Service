@@ -15,7 +15,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="forecastCell" rowHeight="70" id="lLS-rY-nXb" customClass="ForecastTableViewCell" customModule="NationalWeatherService" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="currentWeatherCell" rowHeight="70" id="lLS-rY-nXb" customClass="CurrentWeatherTableViewCell" customModule="NationalWeatherService" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="92" width="320" height="70"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="lLS-rY-nXb" id="vce-WB-t8d">
@@ -28,15 +28,9 @@
                                                 <constraint firstAttribute="width" secondItem="z1a-Zb-Sdw" secondAttribute="height" multiplier="1:1" id="2mH-jt-gt1"/>
                                             </constraints>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Day" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DPd-z7-DcF" userLabel="Date">
-                                            <rect key="frame" x="69" y="8" width="181.5" height="20.5"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Current Conditions" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DPd-z7-DcF" userLabel="Date">
+                                            <rect key="frame" x="69" y="8" width="181.5" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Basic Description" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bwf-m8-oJf" userLabel="Basic Description">
-                                            <rect key="frame" x="69.5" y="43.5" width="181" height="18"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -46,6 +40,12 @@
                                                 <constraint firstAttribute="width" secondItem="NXY-dm-gab" secondAttribute="height" multiplier="1:1" id="szI-uh-mnM"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Basic Description" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bwf-m8-oJf" userLabel="Basic Description">
+                                            <rect key="frame" x="70" y="43" width="181" height="18"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -66,10 +66,76 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="basicDescriptionLabel" destination="Bwf-m8-oJf" id="igU-mh-XYN"/>
-                                    <outlet property="dateLabel" destination="DPd-z7-DcF" id="Jes-il-vpo"/>
-                                    <outlet property="forecastImage" destination="z1a-Zb-Sdw" id="jqd-r9-cbY"/>
-                                    <outlet property="tempLabel" destination="NXY-dm-gab" id="RDZ-hD-DZw"/>
+                                    <outlet property="currentBasicDescriptionLabel" destination="Bwf-m8-oJf" id="Nkt-gM-QEZ"/>
+                                    <outlet property="currentTempLabel" destination="NXY-dm-gab" id="pTE-8W-m95"/>
+                                    <outlet property="currentWeatherImage" destination="z1a-Zb-Sdw" id="9oD-CD-O7m"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="forecastCell" rowHeight="140" id="aB2-QT-Gv6" customClass="ForecastTableViewCell" customModule="NationalWeatherService" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="162" width="320" height="140"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="aB2-QT-Gv6" id="Qwk-Km-28F">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="139.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Ihw-NH-wjg">
+                                            <rect key="frame" x="8" y="8" width="54" height="54"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="54" id="wqP-KH-qL0"/>
+                                                <constraint firstAttribute="height" constant="54" id="yX0-KF-Thc"/>
+                                            </constraints>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Day" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8wp-9z-LyM" userLabel="Date">
+                                            <rect key="frame" x="70" y="8" width="194.5" height="20.5"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Basic Description" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8UB-sF-Ywr" userLabel="Basic Description">
+                                            <rect key="frame" x="70" y="41" width="241.5" height="20.5"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Te" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eiP-S1-uKb" userLabel="Temp">
+                                            <rect key="frame" x="272" y="8" width="40" height="20.5"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="40" id="TTd-UI-MFZ"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Detail Description" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="omP-nA-UFb">
+                                            <rect key="frame" x="8" y="70" width="303.5" height="61.5"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="omP-nA-UFb" firstAttribute="top" secondItem="Ihw-NH-wjg" secondAttribute="bottom" constant="8" id="289-z4-lMj"/>
+                                        <constraint firstAttribute="trailing" secondItem="omP-nA-UFb" secondAttribute="trailing" constant="8" id="2th-JF-6D4"/>
+                                        <constraint firstItem="8wp-9z-LyM" firstAttribute="top" secondItem="Qwk-Km-28F" secondAttribute="top" constant="8" id="3J8-si-8J9"/>
+                                        <constraint firstItem="8wp-9z-LyM" firstAttribute="leading" secondItem="Ihw-NH-wjg" secondAttribute="trailing" constant="8" id="94x-19-xIR"/>
+                                        <constraint firstAttribute="trailing" secondItem="eiP-S1-uKb" secondAttribute="trailing" constant="8" id="Ozs-ve-WCA"/>
+                                        <constraint firstItem="eiP-S1-uKb" firstAttribute="top" secondItem="Qwk-Km-28F" secondAttribute="top" constant="8" id="TFU-7Q-hZx"/>
+                                        <constraint firstItem="Ihw-NH-wjg" firstAttribute="leading" secondItem="Qwk-Km-28F" secondAttribute="leading" constant="8" id="XzZ-Lg-uKa"/>
+                                        <constraint firstAttribute="bottom" secondItem="omP-nA-UFb" secondAttribute="bottom" constant="8" id="jWN-us-oZh"/>
+                                        <constraint firstItem="omP-nA-UFb" firstAttribute="leading" secondItem="Qwk-Km-28F" secondAttribute="leading" constant="8" id="jhn-ZG-QAJ"/>
+                                        <constraint firstAttribute="trailing" secondItem="8UB-sF-Ywr" secondAttribute="trailing" constant="8" id="m26-dO-an2"/>
+                                        <constraint firstItem="8UB-sF-Ywr" firstAttribute="leading" secondItem="Ihw-NH-wjg" secondAttribute="trailing" constant="8" id="o5J-3I-Mbe"/>
+                                        <constraint firstItem="eiP-S1-uKb" firstAttribute="leading" secondItem="8wp-9z-LyM" secondAttribute="trailing" constant="8" id="rDP-eY-D9e"/>
+                                        <constraint firstItem="8UB-sF-Ywr" firstAttribute="bottom" secondItem="Ihw-NH-wjg" secondAttribute="bottom" id="u2G-Xy-MMZ"/>
+                                        <constraint firstItem="Ihw-NH-wjg" firstAttribute="top" secondItem="Qwk-Km-28F" secondAttribute="top" constant="8" id="ypQ-4f-X3o"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="basicDescriptionLabel" destination="8UB-sF-Ywr" id="AJW-ud-zhE"/>
+                                    <outlet property="dateLabel" destination="8wp-9z-LyM" id="fRL-qX-h1f"/>
+                                    <outlet property="detailDescriptionLabel" destination="omP-nA-UFb" id="0eL-wX-6f0"/>
+                                    <outlet property="forecastImage" destination="Ihw-NH-wjg" id="BhX-ZN-hdS"/>
+                                    <outlet property="tempLabel" destination="eiP-S1-uKb" id="UCZ-uq-g33"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
