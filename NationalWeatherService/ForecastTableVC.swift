@@ -10,7 +10,7 @@ import UIKit
 
 class ForecastTableVC: UITableViewController {
     
-    var mockCell:[String] = ["Today", "Tomorrow", "The next day"]
+    var selectedIndexes: [Int] = []
     
     var forecast: Forecast?
     
@@ -26,6 +26,9 @@ class ForecastTableVC: UITableViewController {
                 self.tableView.reloadData()
             }
         }
+        
+        self.tableView.rowHeight = UITableViewAutomaticDimension
+        self.tableView.estimatedRowHeight = 100
     }
     
     override func didReceiveMemoryWarning() {
@@ -43,13 +46,12 @@ class ForecastTableVC: UITableViewController {
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         if section == 0 {
-        
-        return 1
+            return 1
         } else {
             if let cellForecast = forecast {
                 return cellForecast.basicDescription.count
             } else {
-                return 13
+                return 0
             }
         }
     }
@@ -58,27 +60,29 @@ class ForecastTableVC: UITableViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         if indexPath.section == 0 {
-        
-        
-        
-        let cell = tableView.dequeueReusableCellWithIdentifier("currentWeatherCell", forIndexPath: indexPath) as! CurrentWeatherTableViewCell
-        
-        if let cellForecast = forecast {
             
-//            cell.dateLabel.text = cellForecast.date[indexPath.row]
-//            cell.basicDescriptionLabel.text = cellForecast.basicDescription[indexPath.row]
-//            cell.tempLabel.text = cellForecast.temp[indexPath.row]
-//            
-//            cell.forecastImage.image = UIImage(named: "Location")
-        }
-        
-        return cell
+            let cell = tableView.dequeueReusableCellWithIdentifier("currentWeatherCell", forIndexPath: indexPath) as! CurrentWeatherTableViewCell
+            
+            if let cellForecast = forecast {
+                
+                cell.currentTempLabel.text = cellForecast.currentTemp
+                cell.currentBasicDescriptionLabel.text = cellForecast.currentBasicDescription
+                cell.currentTempLabel.text = cellForecast.currentTemp
+            }
+            
+            return cell
             
         } else {
             
             let cell = tableView.dequeueReusableCellWithIdentifier("forecastCell", forIndexPath: indexPath) as! ForecastTableViewCell
             
             if let cellForecast = forecast {
+                
+                if cellForecast.selected[indexPath.row] {
+                    cell.detailDescriptionLabel.hidden = false
+                } else {
+                    cell.detailDescriptionLabel.hidden = true
+                }
                 
                 cell.dateLabel.text = cellForecast.date[indexPath.row]
                 cell.basicDescriptionLabel.text = cellForecast.basicDescription[indexPath.row]
@@ -89,15 +93,61 @@ class ForecastTableVC: UITableViewController {
             }
             
             return cell
-
+            
         }
         
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+//    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+////        if let forecast = forecast where indexPath.section == 1 {
+////            if forecast.selected[indexPath.row] {
+////                return calculateHeightForString(forecast.detailDescription[indexPath.row]) + 70
+////            } else {
+////                return 70
+////            }
+////        }
+////        return 70
+//    }
+    
+    func calculateHeightForString(inString:String) -> CGFloat {
+        let messageString = inString
+        let attributes = [NSFontAttributeName: UIFont.systemFontOfSize(19.0)]
+        let attrString:NSAttributedString? = NSAttributedString(string: messageString, attributes: attributes)
+        let rect:CGRect = attrString!.boundingRectWithSize(CGSizeMake(300.0,CGFloat.max), options: NSStringDrawingOptions.UsesLineFragmentOrigin, context:nil )//hear u will get nearer height not the exact value
+        let requredSize:CGRect = rect
+        return requredSize.height  //to include button's in your tableview
         
     }
     
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if let cell = tableView.cellForRowAtIndexPath(indexPath) as? ForecastTableViewCell,
+            forecast = forecast {
+            tableView.beginUpdates()
+            forecast.selected[indexPath.row] = !forecast.selected[indexPath.row]
+            tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+            tableView.endUpdates()
+            //tableView.reloadData()
+            
+        }
+    }
+    
+    //    override func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
+    //        if let cell = tableView.cellForRowAtIndexPath(indexPath) as? ForecastTableViewCell {
+    //
+    //            tableView.beginUpdates()
+    //            //            for index in selectedIndexes {
+    //            //                if indexPath.row == index {
+    //            //                    selectedIndexes.removeAtIndex(index)
+    //            //                }
+    //            //            }
+    //            selectedIndexes = selectedIndexes.filter{$0 != indexPath.row}
+    //
+    //            tableView.endUpdates()
+    //            //            cell.detailDescriptionLabel.numberOfLines = 1
+    //            //            cell.detailDescriptionLabel.hidden = true
+    //        }
+    //    }
+    //
     
     /*
      // Override to support conditional editing of the table view.

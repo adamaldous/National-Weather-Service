@@ -15,7 +15,6 @@ class ForecastTableViewCell: UITableViewCell {
     @IBOutlet weak var basicDescriptionLabel: UILabel!
     @IBOutlet weak var tempLabel: UILabel!
     @IBOutlet weak var detailDescriptionLabel: UILabel!
-    
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -28,6 +27,5 @@ class ForecastTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
 
-    
    // func updateWith(
 }
