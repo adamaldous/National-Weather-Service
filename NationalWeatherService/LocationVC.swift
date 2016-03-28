@@ -10,7 +10,7 @@ import UIKit
 
 class LocationVC: UIViewController, UITableViewDataSource {
     
-    var mockForecast:[String] = ["Today", "Tomorrow", "The next day"]
+    var mockForecast:[String] = ["Salt Lake", "Provo", "Park City"]
 
     override func viewDidLoad() {
         super.viewDidLoad()

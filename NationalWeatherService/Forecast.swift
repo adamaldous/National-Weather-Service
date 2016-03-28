@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import UIKit
 
 class Forecast {
     
@@ -15,7 +14,7 @@ class Forecast {
     static let kBasicDescription = "weather"
     static let kDetailDescription = "text"
     static let kImageString = "iconLink"
-    static let KDate = "startPeriodName"
+    static let KDay = "startPeriodName"
     static let kTemp = "temperature"
     
     static let kCurrentImageString = "Weatherimage"
@@ -27,11 +26,12 @@ class Forecast {
     //    static let kLowTemp = ""
     
     lazy var selected: [Bool] = self.basicDescription.map({_ in false })
+    
     var cityName = ""
     var basicDescription: [String] = []
     var detailDescription: [String] = []
     var imageString: [String] = []
-    var date: [String] = []
+    var day: [String] = []
     var temp: [String] = []
     
     var currentImageString: String = ""
@@ -72,9 +72,9 @@ class Forecast {
         }
         
         if let time = jsonDictionary["time"] as? [String: AnyObject],
-            date = time[Forecast.KDate] as? [String] {
+            day = time[Forecast.KDay] as? [String] {
             
-            self.date = date
+            self.day = day
         }
     }
 }

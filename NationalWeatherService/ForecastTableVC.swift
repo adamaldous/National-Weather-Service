@@ -27,8 +27,8 @@ class ForecastTableVC: UITableViewController {
             }
         }
         
-        self.tableView.rowHeight = UITableViewAutomaticDimension
-        self.tableView.estimatedRowHeight = 100
+//        self.tableView.rowHeight = UITableViewAutomaticDimension
+//        self.tableView.estimatedRowHeight = 100
     }
     
     override func didReceiveMemoryWarning() {
@@ -68,6 +68,8 @@ class ForecastTableVC: UITableViewController {
                 cell.currentTempLabel.text = cellForecast.currentTemp
                 cell.currentBasicDescriptionLabel.text = cellForecast.currentBasicDescription
                 cell.currentTempLabel.text = cellForecast.currentTemp
+                
+                cell.currentWeatherImage.image = UIImage(named: "Location")
             }
             
             return cell
@@ -75,6 +77,10 @@ class ForecastTableVC: UITableViewController {
         } else {
             
             let cell = tableView.dequeueReusableCellWithIdentifier("forecastCell", forIndexPath: indexPath) as! ForecastTableViewCell
+            
+            self.tableView.rowHeight = UITableViewAutomaticDimension
+            self.tableView.estimatedRowHeight = 100
+
             
             if let cellForecast = forecast {
                 
@@ -84,7 +90,7 @@ class ForecastTableVC: UITableViewController {
                     cell.detailDescriptionLabel.hidden = true
                 }
                 
-                cell.dateLabel.text = cellForecast.date[indexPath.row]
+                cell.dayLabel.text = cellForecast.day[indexPath.row]
                 cell.basicDescriptionLabel.text = cellForecast.basicDescription[indexPath.row]
                 cell.detailDescriptionLabel.text = cellForecast.detailDescription[indexPath.row]
                 cell.tempLabel.text = cellForecast.temp[indexPath.row]
@@ -108,16 +114,16 @@ class ForecastTableVC: UITableViewController {
 ////        }
 ////        return 70
 //    }
-    
-    func calculateHeightForString(inString:String) -> CGFloat {
-        let messageString = inString
-        let attributes = [NSFontAttributeName: UIFont.systemFontOfSize(19.0)]
-        let attrString:NSAttributedString? = NSAttributedString(string: messageString, attributes: attributes)
-        let rect:CGRect = attrString!.boundingRectWithSize(CGSizeMake(300.0,CGFloat.max), options: NSStringDrawingOptions.UsesLineFragmentOrigin, context:nil )//hear u will get nearer height not the exact value
-        let requredSize:CGRect = rect
-        return requredSize.height  //to include button's in your tableview
-        
-    }
+//    
+//    func calculateHeightForString(inString:String) -> CGFloat {
+//        let messageString = inString
+//        let attributes = [NSFontAttributeName: UIFont.systemFontOfSize(19.0)]
+//        let attrString:NSAttributedString? = NSAttributedString(string: messageString, attributes: attributes)
+//        let rect:CGRect = attrString!.boundingRectWithSize(CGSizeMake(300.0,CGFloat.max), options: NSStringDrawingOptions.UsesLineFragmentOrigin, context:nil )//hear u will get nearer height not the exact value
+//        let requredSize:CGRect = rect
+//        return requredSize.height  //to include button's in your tableview
+//        
+//    }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if let cell = tableView.cellForRowAtIndexPath(indexPath) as? ForecastTableViewCell,
