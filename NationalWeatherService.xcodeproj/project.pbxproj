@@ -79,8 +79,8 @@
 		96B0D0551CA5B7170022413B /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				96C9E8911CA1F11B00ED1E88 /* ForecastTableViewCell.swift */,
 				96CDE2241CA489B700D626B6 /* CurrentWeatherTableViewCell.swift */,
+				96C9E8911CA1F11B00ED1E88 /* ForecastTableViewCell.swift */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
