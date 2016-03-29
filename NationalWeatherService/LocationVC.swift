@@ -11,6 +11,8 @@ import UIKit
 class LocationVC: UIViewController, UITableViewDataSource {
     
     var mockForecast:[String] = ["Salt Lake", "Provo", "Park City"]
+    
+    var locations: [Location]?
 
     override func viewDidLoad() {
         super.viewDidLoad()

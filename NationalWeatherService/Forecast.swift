@@ -42,7 +42,7 @@ class Forecast {
     //    var highTemp: [Int] = []
     //    var lowTemp: [Int] = []
     
-    init(jsonDictionary: [String : AnyObject]) {
+    init?(jsonDictionary: [String : AnyObject]) {
         
         if let cityName = jsonDictionary[Forecast.kCityName] as? String {
             self.cityName = cityName

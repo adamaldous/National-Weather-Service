@@ -12,16 +12,15 @@ class NetworkController {
     
 //    private static let API_KEY = "4e63f48bb2d090d7fb7d80f6447ace6a"
     
-    static let baseURL = "http://forecast.weather.gov/MapClick.php?lat=40.6561&lon=-111.835&FcstType=json"
+    static let baseURL = "http://forecast.weather.gov/MapClick.php?"
     
-    static func searchURLByCity(city: String) -> NSURL {
-        let escapedCityString = city.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet())
+    static func getURL(latLon: String) -> NSURL {
         
-        return NSURL(string: baseURL)!
+        return NSURL(string: baseURL + latLon + "&FcstType=json")!
     }
     
-    static func urlForIcon(iconString: String) -> NSURL {
-        return NSURL(string: "http://openweathermap.org/img/w/\(iconString).png")!
+    static func getIconURL(imageString: String) -> NSURL {
+        return NSURL(string: imageString)!
     }
     
     static func dataAtURL(url: NSURL, completion:(resultData: NSData?) -> Void) {

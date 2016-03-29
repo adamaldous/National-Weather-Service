@@ -7,12 +7,13 @@
 //
 
 import Foundation
+import UIKit
 
 class ForecastController {
     
-    static func weatherBySearchCity(city: String, completion:(result: Forecast?) -> Void) {
+    static func getWeather(latLon: String, completion:(result: Forecast?) -> Void) {
         
-        let url = NetworkController.searchURLByCity(city)
+        let url = NetworkController.getURL(latLon)
         
         NetworkController.dataAtURL(url) { (resultData) -> Void in
             
@@ -41,17 +42,18 @@ class ForecastController {
         }
     }
     
-//    static func weatherIconForIconCode(iconCode: String, completion:(image: UIImage?) -> Void) {
-//        let url = NetworkController.urlForIcon(iconCode)
-//        
-//        NetworkController.dataAtURL(url) { (resultData) -> Void in
-//            guard let resultData = resultData
-//                else {
-//                    print("NO DATA RETURNED")
-//                    completion(image: nil)
-//                    return
-//            }
-//            completion(image: UIImage(data: resultData))
-//        }
-//    }
+    static func getIcons(imageString: String, completion:(image: UIImage?) -> Void) {
+        
+        let url = NetworkController.getIconURL(imageString)
+        
+        NetworkController.dataAtURL(url) { (resultData) -> Void in
+            guard let resultData = resultData
+                else {
+                    print("NO DATA RETURNED")
+                    completion(image: nil)
+                    return
+            }
+            completion(image: UIImage(data: resultData))
+        }
+    }
 }

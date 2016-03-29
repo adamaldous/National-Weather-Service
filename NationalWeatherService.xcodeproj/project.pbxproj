@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		961F67661CA9E0A3005295B4 /* LocationTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961F67651CA9E0A3005295B4 /* LocationTableVC.swift */; };
 		96B0D0511CA5B68D0022413B /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B0D0501CA5B68D0022413B /* Location.swift */; };
 		96C9E8761CA1A8D500ED1E88 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C9E8751CA1A8D500ED1E88 /* AppDelegate.swift */; };
 		96C9E87B1CA1A8D500ED1E88 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 96C9E8791CA1A8D500ED1E88 /* Main.storyboard */; };
@@ -19,9 +20,11 @@
 		96C9E8901CA1DD1500ED1E88 /* ForecastController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C9E88F1CA1DD1500ED1E88 /* ForecastController.swift */; };
 		96C9E8921CA1F11B00ED1E88 /* ForecastTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C9E8911CA1F11B00ED1E88 /* ForecastTableViewCell.swift */; };
 		96CDE2251CA489B700D626B6 /* CurrentWeatherTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96CDE2241CA489B700D626B6 /* CurrentWeatherTableViewCell.swift */; };
+		96D588D61CAB0E9800EADFA3 /* LocationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D588D51CAB0E9800EADFA3 /* LocationController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		961F67651CA9E0A3005295B4 /* LocationTableVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationTableVC.swift; sourceTree = "<group>"; };
 		96B0D0501CA5B68D0022413B /* Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		96C9E8721CA1A8D500ED1E88 /* NationalWeatherService.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NationalWeatherService.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		96C9E8751CA1A8D500ED1E88 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -36,6 +39,7 @@
 		96C9E88F1CA1DD1500ED1E88 /* ForecastController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForecastController.swift; sourceTree = "<group>"; };
 		96C9E8911CA1F11B00ED1E88 /* ForecastTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForecastTableViewCell.swift; sourceTree = "<group>"; };
 		96CDE2241CA489B700D626B6 /* CurrentWeatherTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentWeatherTableViewCell.swift; sourceTree = "<group>"; };
+		96D588D51CAB0E9800EADFA3 /* LocationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LocationController.swift; path = ../LocationController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,8 +56,8 @@
 		96B0D0521CA5B6C70022413B /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				96C9E88B1CA1BEDC00ED1E88 /* Forecast.swift */,
 				96B0D0501CA5B68D0022413B /* Location.swift */,
+				96C9E88B1CA1BEDC00ED1E88 /* Forecast.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -61,6 +65,7 @@
 		96B0D0531CA5B6EF0022413B /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				96D588D51CAB0E9800EADFA3 /* LocationController.swift */,
 				96C9E88F1CA1DD1500ED1E88 /* ForecastController.swift */,
 				96C9E88D1CA1BF8D00ED1E88 /* NetworkController.swift */,
 			);
@@ -70,6 +75,7 @@
 		96B0D0541CA5B7090022413B /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				961F67651CA9E0A3005295B4 /* LocationTableVC.swift */,
 				96C9E8891CA1B24E00ED1E88 /* ForecastTableVC.swift */,
 				96C9E8871CA1B21300ED1E88 /* LocationVC.swift */,
 			);
@@ -188,8 +194,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				96D588D61CAB0E9800EADFA3 /* LocationController.swift in Sources */,
 				96C9E88E1CA1BF8D00ED1E88 /* NetworkController.swift in Sources */,
 				96C9E88C1CA1BEDC00ED1E88 /* Forecast.swift in Sources */,
+				961F67661CA9E0A3005295B4 /* LocationTableVC.swift in Sources */,
 				96C9E8761CA1A8D500ED1E88 /* AppDelegate.swift in Sources */,
 				96C9E88A1CA1B24E00ED1E88 /* ForecastTableVC.swift in Sources */,
 				96B0D0511CA5B68D0022413B /* Location.swift in Sources */,

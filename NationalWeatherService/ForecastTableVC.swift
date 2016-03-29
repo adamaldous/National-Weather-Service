@@ -14,19 +14,30 @@ class ForecastTableVC: UITableViewController {
     
     var forecast: Forecast?
     
+    var latLon: String = ""
+    
+    var images: [UIImage] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        ForecastController.weatherBySearchCity("rrr") { (result) -> Void in
-            guard let weatherResult = result else { return }
-            self.forecast = weatherResult
-            
-            dispatch_async(dispatch_get_main_queue()) { () in
-                
-                self.tableView.reloadData()
+        
+        
+        ForecastController.getWeather("lat=40.5819&lon=-111.6544") { (result) -> Void in
+            guard let result = result else { return }
+            self.forecast = result
+            for pic in result.imageString {
+                ForecastController.getIcons(pic, completion: { (image) in
+                    guard let image = image else { return }
+                    self.images.append(image)
+                    
+                    
+                    dispatch_async(dispatch_get_main_queue()) { () in
+                        self.tableView.reloadData()
+                    }
+                })
             }
         }
-        
     }
     
     override func didReceiveMemoryWarning() {
@@ -46,8 +57,8 @@ class ForecastTableVC: UITableViewController {
         if section == 0 {
             return 1
         } else {
-            if let cellForecast = forecast {
-                return cellForecast.basicDescription.count
+            if let forecast = forecast {
+                return forecast.basicDescription.count
             } else {
                 return 0
             }
@@ -61,11 +72,11 @@ class ForecastTableVC: UITableViewController {
             
             let cell = tableView.dequeueReusableCellWithIdentifier("currentWeatherCell", forIndexPath: indexPath) as! CurrentWeatherTableViewCell
             
-            if let cellForecast = forecast {
+            if let forecast = forecast {
                 
-                cell.currentTempLabel.text = cellForecast.currentTemp
-                cell.currentTempLabel.text = cellForecast.currentTemp
-                cell.lastUpdatedLabel.text = cellForecast.lastUpdated
+                cell.currentTempLabel.text = forecast.currentTemp
+                cell.currentTempLabel.text = forecast.currentTemp
+                cell.lastUpdatedLabel.text = forecast.lastUpdated
                 
                 cell.currentWeatherImage.image = UIImage(named: "Location")
             }
@@ -76,24 +87,20 @@ class ForecastTableVC: UITableViewController {
             
             let cell = tableView.dequeueReusableCellWithIdentifier("forecastCell", forIndexPath: indexPath) as! ForecastTableViewCell
             
-            //            self.tableView.rowHeight = UITableViewAutomaticDimension
-            //            self.tableView.estimatedRowHeight = 100
-            
-            
-            if let cellForecast = forecast {
+            if let forecast = forecast {
                 
-                if cellForecast.selected[indexPath.row] {
+                if forecast.selected[indexPath.row] {
                     cell.detailDescriptionLabel.hidden = false
                 } else {
                     cell.detailDescriptionLabel.hidden = true
                 }
                 
-                cell.dayLabel.text = cellForecast.day[indexPath.row]
-                cell.basicDescriptionLabel.text = cellForecast.basicDescription[indexPath.row]
-                cell.detailDescriptionLabel.text = cellForecast.detailDescription[indexPath.row]
-                cell.tempLabel.text = cellForecast.temp[indexPath.row]
+                cell.dayLabel.text = forecast.day[indexPath.row]
+                cell.basicDescriptionLabel.text = forecast.basicDescription[indexPath.row]
+                cell.detailDescriptionLabel.text = forecast.detailDescription[indexPath.row]
+                cell.tempLabel.text = forecast.temp[indexPath.row]
                 
-                cell.forecastImage.image = UIImage(named: "Location")
+                cell.forecastImage.image = images[indexPath.row]
             }
             
             return cell

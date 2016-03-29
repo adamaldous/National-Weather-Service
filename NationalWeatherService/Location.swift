@@ -7,3 +7,16 @@
 //
 
 import Foundation
+import CoreLocation
+
+class Location {
+    
+    var name: String = ""
+    var location: CLLocation?
+    
+    init(name: String, latLon: String) {
+        
+        self.name = name
+        
+    }
+}
