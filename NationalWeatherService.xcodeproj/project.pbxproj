@@ -19,6 +19,7 @@
 		96C9E88E1CA1BF8D00ED1E88 /* NetworkController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C9E88D1CA1BF8D00ED1E88 /* NetworkController.swift */; };
 		96C9E8901CA1DD1500ED1E88 /* ForecastController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C9E88F1CA1DD1500ED1E88 /* ForecastController.swift */; };
 		96C9E8921CA1F11B00ED1E88 /* ForecastTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C9E8911CA1F11B00ED1E88 /* ForecastTableViewCell.swift */; };
+		96CAA4991CAB8F3700EFE1A7 /* ColorPallete.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96CAA4981CAB8F3700EFE1A7 /* ColorPallete.swift */; };
 		96CDE2251CA489B700D626B6 /* CurrentWeatherTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96CDE2241CA489B700D626B6 /* CurrentWeatherTableViewCell.swift */; };
 		96D588D61CAB0E9800EADFA3 /* LocationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D588D51CAB0E9800EADFA3 /* LocationController.swift */; };
 /* End PBXBuildFile section */
@@ -38,6 +39,7 @@
 		96C9E88D1CA1BF8D00ED1E88 /* NetworkController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkController.swift; sourceTree = "<group>"; };
 		96C9E88F1CA1DD1500ED1E88 /* ForecastController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForecastController.swift; sourceTree = "<group>"; };
 		96C9E8911CA1F11B00ED1E88 /* ForecastTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForecastTableViewCell.swift; sourceTree = "<group>"; };
+		96CAA4981CAB8F3700EFE1A7 /* ColorPallete.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorPallete.swift; sourceTree = "<group>"; };
 		96CDE2241CA489B700D626B6 /* CurrentWeatherTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentWeatherTableViewCell.swift; sourceTree = "<group>"; };
 		96D588D51CAB0E9800EADFA3 /* LocationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LocationController.swift; path = ../LocationController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -56,6 +58,7 @@
 		96B0D0521CA5B6C70022413B /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				96CAA4981CAB8F3700EFE1A7 /* ColorPallete.swift */,
 				96B0D0501CA5B68D0022413B /* Location.swift */,
 				96C9E88B1CA1BEDC00ED1E88 /* Forecast.swift */,
 			);
@@ -197,6 +200,7 @@
 				96D588D61CAB0E9800EADFA3 /* LocationController.swift in Sources */,
 				96C9E88E1CA1BF8D00ED1E88 /* NetworkController.swift in Sources */,
 				96C9E88C1CA1BEDC00ED1E88 /* Forecast.swift in Sources */,
+				96CAA4991CAB8F3700EFE1A7 /* ColorPallete.swift in Sources */,
 				961F67661CA9E0A3005295B4 /* LocationTableVC.swift in Sources */,
 				96C9E8761CA1A8D500ED1E88 /* AppDelegate.swift in Sources */,
 				96C9E88A1CA1B24E00ED1E88 /* ForecastTableVC.swift in Sources */,

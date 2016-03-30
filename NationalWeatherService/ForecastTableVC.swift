@@ -23,19 +23,12 @@ class ForecastTableVC: UITableViewController {
         
         
         
-        ForecastController.getWeather("lat=40.5819&lon=-111.6544") { (result) -> Void in
+        ForecastController.getWeather("lat=40.6561&lon=-111.835") { (result) -> Void in
             guard let result = result else { return }
             self.forecast = result
-            for pic in result.imageString {
-                ForecastController.getIcons(pic, completion: { (image) in
-                    guard let image = image else { return }
-                    self.images.append(image)
-                    
-                    
-                    dispatch_async(dispatch_get_main_queue()) { () in
-                        self.tableView.reloadData()
-                    }
-                })
+            
+            dispatch_async(dispatch_get_main_queue()) { () in
+                self.tableView.reloadData()
             }
         }
     }
@@ -74,6 +67,8 @@ class ForecastTableVC: UITableViewController {
             
             if let forecast = forecast {
                 
+                cell.backgroundColor = UIColor.NWSBlue()
+                
                 cell.currentTempLabel.text = forecast.currentTemp
                 cell.currentTempLabel.text = forecast.currentTemp
                 cell.lastUpdatedLabel.text = forecast.lastUpdated
@@ -91,8 +86,18 @@ class ForecastTableVC: UITableViewController {
                 
                 if forecast.selected[indexPath.row] {
                     cell.detailDescriptionLabel.hidden = false
+                    cell.basicDescriptionLabel.hidden = true
                 } else {
                     cell.detailDescriptionLabel.hidden = true
+                    cell.basicDescriptionLabel.hidden = false
+                }
+                
+                if forecast.day[indexPath.row].containsString("Tonight") || forecast.day[indexPath.row].containsString(" Night") {
+                    cell.backgroundColor = UIColor.whiteColor()
+                    cell.tempLabel.textColor = UIColor.blueColor()
+                } else {
+                    cell.backgroundColor = UIColor.NWSBlue()
+                    cell.tempLabel.textColor = UIColor.redColor()
                 }
                 
                 cell.dayLabel.text = forecast.day[indexPath.row]
@@ -100,7 +105,14 @@ class ForecastTableVC: UITableViewController {
                 cell.detailDescriptionLabel.text = forecast.detailDescription[indexPath.row]
                 cell.tempLabel.text = forecast.temp[indexPath.row]
                 
-                cell.forecastImage.image = images[indexPath.row]
+                ForecastController.getIcons(forecast.imageString[indexPath.row], completion: { (image) in
+                    
+                    dispatch_async(dispatch_get_main_queue()) { () in
+                        cell.forecastImage.image = image
+                    }
+                    
+                    
+                })
             }
             
             return cell
