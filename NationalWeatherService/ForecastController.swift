@@ -42,7 +42,7 @@ class ForecastController {
         }
     }
     
-    static func getIcons(imageString: String, completion:(image: UIImage?) -> Void) {
+    static func getIcon(imageString: String, completion:(image: UIImage?) -> Void) {
         
         let url = NetworkController.getIconURL(imageString)
         

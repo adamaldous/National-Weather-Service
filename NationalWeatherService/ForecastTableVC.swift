@@ -7,21 +7,41 @@
 //
 
 import UIKit
+import CoreLocation
 
 class ForecastTableVC: UITableViewController {
+    
+    let kCurrentWeatherImage = "http://forecast.weather.gov/newimages/medium/"
     
     var selectedIndexes: [Int] = []
     
     var forecast: Forecast?
     
-    var latLon: String = ""
+    var location: Location? {
+        get {
+            if let locationDictionary = NSUserDefaults.standardUserDefaults().objectForKey("location") as? [String: AnyObject],
+                latitude = locationDictionary["lat"] as? CLLocationDegrees,
+                longitude = locationDictionary["lon"] as? CLLocationDegrees ,
+                name = locationDictionary["name"] as? String {
+                return Location(name: name, location:CLLocation(latitude: latitude, longitude: longitude))
+            } else {
+                return nil
+            }
+        }
+        set {
+            if let location = location {
+                let locationDictionary = location.dictionaryCopy
+                NSUserDefaults.standardUserDefaults().setObject(locationDictionary, forKey: "location")
+            } else {
+                NSUserDefaults.standardUserDefaults().removeObjectForKey("location")
+            }
+        }
+    }
     
     var images: [UIImage] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
         
         ForecastController.getWeather("lat=40.6561&lon=-111.835") { (result) -> Void in
             guard let result = result else { return }
@@ -73,7 +93,12 @@ class ForecastTableVC: UITableViewController {
                 cell.currentTempLabel.text = forecast.currentTemp
                 cell.lastUpdatedLabel.text = forecast.lastUpdated
                 
-                cell.currentWeatherImage.image = UIImage(named: "Location")
+                ForecastController.getIcon(kCurrentWeatherImage + forecast.currentImageString, completion: { (image) in
+                    
+                    dispatch_async(dispatch_get_main_queue()) { () in
+                        cell.currentWeatherImage.image = image
+                    }
+                })
             }
             
             return cell
@@ -93,7 +118,7 @@ class ForecastTableVC: UITableViewController {
                 }
                 
                 if forecast.day[indexPath.row].containsString("Tonight") || forecast.day[indexPath.row].containsString(" Night") {
-                    cell.backgroundColor = UIColor.whiteColor()
+                    cell.backgroundColor = UIColor.nightColor()
                     cell.tempLabel.textColor = UIColor.blueColor()
                 } else {
                     cell.backgroundColor = UIColor.NWSBlue()
@@ -105,20 +130,15 @@ class ForecastTableVC: UITableViewController {
                 cell.detailDescriptionLabel.text = forecast.detailDescription[indexPath.row]
                 cell.tempLabel.text = forecast.temp[indexPath.row]
                 
-                ForecastController.getIcons(forecast.imageString[indexPath.row], completion: { (image) in
+                ForecastController.getIcon(forecast.imageString[indexPath.row], completion: { (image) in
                     
                     dispatch_async(dispatch_get_main_queue()) { () in
                         cell.forecastImage.image = image
                     }
-                    
-                    
                 })
             }
-            
             return cell
-            
         }
-        
     }
     
     override func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {

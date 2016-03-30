@@ -7,22 +7,24 @@
 //
 
 import UIKit
+import CoreLocation
 
 class LocationTableVC: UITableViewController {
     
     var locations: [Location] = []
     
-    let location0 = Location(name: "Home", latLon: "lat=40.6561&lon=-111.835")
-    let location1 = Location(name: "Snowbird", latLon: "lat=40.5819&lon=-111.6544")
-    let location2 = Location(name: "Palm Springs", latLon: "lat=33.8285&lon=-116.5067")
+    let location0 = Location(name: "Current Location", location: CLLocation(latitude: 40.6561, longitude: -111.835))
+    let location1 = Location(name: "Home", location: CLLocation(latitude: 40.6561, longitude: -111.835))
+    let location2 = Location(name: "Snowbird", location: CLLocation(latitude: 40.5819, longitude: -111.6544))
+    let location3 = Location(name: "Palm Springs", location: CLLocation(latitude: 33.8285, longitude: -116.5067))
     
-    var selectedLocation: Location?
+    internal var selectedLocation: Location?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.locations = [location0, location1, location2]
-        self.selectedLocation = location0
+        self.locations = [location0, location1, location2, location3]
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -51,10 +53,14 @@ class LocationTableVC: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if let cell = tableView.cellForRowAtIndexPath(indexPath) as? LocationTableVC {
-            
             selectedLocation = locations[indexPath.row]
-        }
+        
+        
+        
+//            (self.navigationController?.viewControllers.first as? ForecastTableVC)?.location = selectedLocation
+//        (self.navigationController?.viewControllers.first as? ForecastTableVC)?.viewDidLoad()
+//
+//            self.navigationController?.popViewControllerAnimated(true)
     }
 
     /*
