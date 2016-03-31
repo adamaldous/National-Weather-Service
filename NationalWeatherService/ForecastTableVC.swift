@@ -12,9 +12,7 @@ import CoreLocation
 class ForecastTableVC: UITableViewController {
     
     let kCurrentWeatherImage = "http://forecast.weather.gov/newimages/medium/"
-    
-    var selectedIndexes: [Int] = []
-    
+        
     var forecast: Forecast?
     
     var location: Location? {
@@ -87,11 +85,33 @@ class ForecastTableVC: UITableViewController {
             
             if let forecast = forecast {
                 
-                cell.backgroundColor = UIColor.NWSBlue()
+                if forecast.selected[indexPath.row] {
+                    cell.windLabel.hidden = false
+                    cell.barometerLabel.hidden = false
+                    cell.dewpointLabel.hidden = false
+                    cell.windChillLabel.hidden = false
+                    cell.visibilityLabel.hidden = false
+                    cell.humidityLabel.hidden = false
+                    cell.lastUpdatedLabel.hidden = false
+                } else {
+                    cell.windLabel.hidden = true
+                    cell.barometerLabel.hidden = true
+                    cell.dewpointLabel.hidden = true
+                    cell.windChillLabel.hidden = true
+                    cell.visibilityLabel.hidden = true
+                    cell.humidityLabel.hidden = true
+                    cell.lastUpdatedLabel.hidden = true
+                }
                 
-                cell.currentTempLabel.text = forecast.currentTemp
-                cell.currentTempLabel.text = forecast.currentTemp
-                cell.lastUpdatedLabel.text = forecast.lastUpdated
+                cell.currentTempLabel.text = "\(forecast.currentTemp)°F"
+                cell.currentBasicDescriptionLabel.text = forecast.currentBasicDescription
+                cell.windLabel.text = "Wind: \(forecast.windDirection) at \(forecast.windSpeed) MPH"
+                cell.barometerLabel.text = "Barometer: \(forecast.barometer) in"
+                cell.dewpointLabel.text = "Dewpoint: \(forecast.dewpoint)°F"
+                cell.windChillLabel.text = "Wind Chill: \(forecast.windChill)°F"
+                cell.visibilityLabel.text = "Visibility: \(forecast.visibility) mi"
+                cell.humidityLabel.text = "Humidity: \(forecast.humidity)%"
+                cell.lastUpdatedLabel.text = "\(forecast.lastUpdated) at \(forecast.observationID)"
                 
                 ForecastController.getIcon(kCurrentWeatherImage + forecast.currentImageString, completion: { (image) in
                     
@@ -128,7 +148,7 @@ class ForecastTableVC: UITableViewController {
                 cell.dayLabel.text = forecast.day[indexPath.row]
                 cell.basicDescriptionLabel.text = forecast.basicDescription[indexPath.row]
                 cell.detailDescriptionLabel.text = forecast.detailDescription[indexPath.row]
-                cell.tempLabel.text = forecast.temp[indexPath.row]
+                cell.tempLabel.text = "\(forecast.temp[indexPath.row])°F"
                 
                 ForecastController.getIcon(forecast.imageString[indexPath.row], completion: { (image) in
                     
@@ -162,6 +182,8 @@ class ForecastTableVC: UITableViewController {
     //
     //    }
     
+    
+    
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if let cell = tableView.cellForRowAtIndexPath(indexPath) as? ForecastTableViewCell,
             forecast = forecast {
@@ -169,10 +191,17 @@ class ForecastTableVC: UITableViewController {
             forecast.selected[indexPath.row] = !forecast.selected[indexPath.row]
             tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
             tableView.endUpdates()
-            //tableView.reloadData()
-            
+        }
+        
+        if let cell = tableView.cellForRowAtIndexPath(indexPath) as? CurrentWeatherTableViewCell,
+            forecast = forecast {
+            tableView.beginUpdates()
+            forecast.selected[indexPath.row] = !forecast.selected[indexPath.row]
+            tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+            tableView.endUpdates()
         }
     }
+    
     
     //    override func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
     //        if let cell = tableView.cellForRowAtIndexPath(indexPath) as? ForecastTableViewCell {

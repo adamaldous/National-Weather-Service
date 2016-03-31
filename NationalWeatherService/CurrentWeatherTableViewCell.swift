@@ -13,6 +13,13 @@ class CurrentWeatherTableViewCell: UITableViewCell {
     @IBOutlet weak var currentWeatherImage: UIImageView!
     @IBOutlet weak var currentTempLabel: UILabel!
     @IBOutlet weak var lastUpdatedLabel: UILabel!
+    @IBOutlet weak var currentBasicDescriptionLabel: UILabel!
+    @IBOutlet weak var windLabel: UILabel!
+    @IBOutlet weak var barometerLabel: UILabel!
+    @IBOutlet weak var dewpointLabel: UILabel!
+    @IBOutlet weak var windChillLabel: UILabel!
+    @IBOutlet weak var visibilityLabel: UILabel!
+    @IBOutlet weak var humidityLabel: UILabel!
     
     
     override func awakeFromNib() {
