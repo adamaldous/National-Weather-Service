@@ -8,11 +8,14 @@
 
 import UIKit
 import CoreLocation
+import MapKit
 
-class ForecastTableVC: UITableViewController {
+class ForecastTableVC: UITableViewController, CLLocationManagerDelegate {
     
     let kCurrentWeatherImage = "http://forecast.weather.gov/newimages/medium/"
-        
+    
+    let locationManager = CLLocationManager()
+    
     var forecast: Forecast?
     
     var location: Location? {
@@ -27,7 +30,7 @@ class ForecastTableVC: UITableViewController {
             }
         }
         set {
-            if let location = location {
+            if let location = newValue {
                 let locationDictionary = location.dictionaryCopy
                 NSUserDefaults.standardUserDefaults().setObject(locationDictionary, forKey: "location")
             } else {
@@ -41,7 +44,23 @@ class ForecastTableVC: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        ForecastController.getWeather("lat=40.6561&lon=-111.835") { (result) -> Void in
+        self.locationManager.requestWhenInUseAuthorization()
+        
+        
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        guard let location = location else {return}
+        
+        // Do a check to see if location is in the US
+        
+        ForecastController.getWeather(location.latlon) { (result) -> Void in
             guard let result = result else { return }
             self.forecast = result
             
@@ -49,11 +68,6 @@ class ForecastTableVC: UITableViewController {
                 self.tableView.reloadData()
             }
         }
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     // MARK: - Table view data source
