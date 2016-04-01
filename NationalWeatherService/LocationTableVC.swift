@@ -9,22 +9,33 @@
 import UIKit
 import CoreLocation
 
-class LocationTableVC: UITableViewController, CLLocationManagerDelegate {
+class LocationTableVC: UITableViewController, CLLocationManagerDelegate, LocationControllerDelegate {
     
-    let locationManager = CLLocationManager()
+    
     
     var locations: [Location] = []
     
-//    var location0: Location {
-//        get {
-//            locationManager.delegate = self
-//            locationManager.desiredAccuracy = kCLLocationAccuracyBest
-//            locationManager.startUpdatingLocation()
-//            
-//            return Location(name: "Current Location", location: CLLocation(latitude: 40.6561, longitude: -111.835))
-//
-//        }
-//    }
+    var location0: Location? {
+        get {
+            if let locationDictionary = NSUserDefaults.standardUserDefaults().objectForKey("currentLocation") as? [String: AnyObject],
+                latitude = locationDictionary["lat"] as? CLLocationDegrees,
+                longitude = locationDictionary["lon"] as? CLLocationDegrees ,
+                name = locationDictionary["name"] as? String {
+                return Location(name: name, location:CLLocation(latitude: latitude, longitude: longitude))
+            } else {
+                return nil
+            }
+        }
+        set {
+            if let location = newValue {
+                let locationDictionary = location.dictionaryCopy
+                NSUserDefaults.standardUserDefaults().setObject(locationDictionary, forKey: "currentLocation")
+            } else {
+                NSUserDefaults.standardUserDefaults().removeObjectForKey("location")
+            }
+        }
+        
+    }
     let location1 = Location(name: "Home", location: CLLocation(latitude: 40.6561, longitude: -111.835))
     let location2 = Location(name: "Snowbird", location: CLLocation(latitude: 40.5819, longitude: -111.6544))
     let location3 = Location(name: "Palm Springs", location: CLLocation(latitude: 33.8285, longitude: -116.5067))
@@ -33,7 +44,8 @@ class LocationTableVC: UITableViewController, CLLocationManagerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        LocationController.sharedController.delegate = self
+//        LocationController.sharedController.locationManager.requestLocation()
         self.locations = [location1, location2, location3]
         
     }
@@ -43,39 +55,43 @@ class LocationTableVC: UITableViewController, CLLocationManagerDelegate {
         // Dispose of any resources that can be recreated.
     }
     
-//    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-//        guard let location = locations.last else {
-//            print("No location")
-//            locationHandler?(location: nil)
-//            return
-//        }
-//        location0 = location
-//    }
-//    
-//    func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
-//        print("Location request failed with error: \(error)")
-//        locationHandler?(location: nil)
-//    }
-
+    func locationChanged(location: CLLocation?) {
+        if let location = location {
+            location0 = Location(name: "Current Location", location: location)
+        } else {
+            LocationController.sharedController.locationManager.requestLocation()
+        }
+    }
+    
+    
     
     // MARK: - Table view data source
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 1
+        return 2
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
+        if section == 0 {
+            return 1
+        }
         return locations.count
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("locationCell", forIndexPath: indexPath)
-        
-        cell.textLabel?.text = locations[indexPath.row].name
-        
-        return cell
+        if indexPath.section == 0 {
+            
+            let cell = tableView.dequeueReusableCellWithIdentifier("currentLocationCell", forIndexPath: indexPath)
+            return cell
+            
+        } else {
+            
+            let cell = tableView.dequeueReusableCellWithIdentifier("savedLocationsCell", forIndexPath: indexPath)
+            cell.textLabel?.text = locations[indexPath.row].name
+            return cell
+        }
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {

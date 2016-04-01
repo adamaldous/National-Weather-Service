@@ -21,7 +21,7 @@ class Forecast {
     static let kCurrentBasicDescription = "Weather"
     static let kCurrentTemp = "Temp"
     static let kLastUpdated = "Date"
-    static let kObservationID = "id"
+    static let kObservationName = "name"
     static let kHumidity = "Relh"
     static let kVisibility = "Visibility"
     static let kWindChill = "WindChill"
@@ -46,7 +46,7 @@ class Forecast {
     var currentBasicDescription: String = ""
     var currentTemp: String = ""
     var lastUpdated: String = ""
-    var observationID: String = ""
+    var observationName: String = ""
     var humidity: String = ""
     var visibility: String = ""
     var windChill: String = ""
@@ -106,7 +106,7 @@ class Forecast {
             currentBasicDescription = currentobservation[Forecast.kCurrentBasicDescription] as? String,
             currentTemp = currentobservation[Forecast.kCurrentTemp] as? String,
             lastUpdated = currentobservation[Forecast.kLastUpdated] as? String,
-            observationID = currentobservation[Forecast.kObservationID] as? String,
+            observationName = currentobservation[Forecast.kObservationName] as? String,
             humidity = currentobservation[Forecast.kHumidity] as? String,
             visibility = currentobservation[Forecast.kVisibility] as? String,
             windChill = currentobservation[Forecast.kWindChill] as? String,
@@ -124,7 +124,7 @@ class Forecast {
             self.currentBasicDescription = currentBasicDescription
             self.currentTemp = currentTemp
             self.lastUpdated = lastUpdated
-            self.observationID = observationID
+            self.observationName = observationName
             self.humidity = humidity
             self.visibility = visibility
             self.windChill = windChill

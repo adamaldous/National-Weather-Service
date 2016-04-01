@@ -60,6 +60,8 @@ class ForecastTableVC: UITableViewController, CLLocationManagerDelegate {
         
         // Do a check to see if location is in the US
         
+        navigationItem.title = location.name
+        
         ForecastController.getWeather(location.latlon) { (result) -> Void in
             guard let result = result else { return }
             self.forecast = result
@@ -125,7 +127,7 @@ class ForecastTableVC: UITableViewController, CLLocationManagerDelegate {
                 cell.windChillLabel.text = "Wind Chill: \(forecast.windChill)°F"
                 cell.visibilityLabel.text = "Visibility: \(forecast.visibility) mi"
                 cell.humidityLabel.text = "Humidity: \(forecast.humidity)%"
-                cell.lastUpdatedLabel.text = "\(forecast.lastUpdated) at \(forecast.observationID)"
+                cell.lastUpdatedLabel.text = "Last Observed: \(forecast.lastUpdated) at \(forecast.observationName)"
                 
                 ForecastController.getIcon(kCurrentWeatherImage + forecast.currentImageString, completion: { (image) in
                     
@@ -155,7 +157,7 @@ class ForecastTableVC: UITableViewController, CLLocationManagerDelegate {
                     cell.backgroundColor = UIColor.nightColor()
                     cell.tempLabel.textColor = UIColor.blueColor()
                 } else {
-                    cell.backgroundColor = UIColor.NWSBlue()
+                    cell.backgroundColor = UIColor.dayColor()
                     cell.tempLabel.textColor = UIColor.redColor()
                 }
                 

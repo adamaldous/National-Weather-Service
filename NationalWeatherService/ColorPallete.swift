@@ -36,15 +36,23 @@ extension UIColor {
         return UIColor(red: 0.906, green: 0.960, blue: 1.000, alpha: 1.00)
     }
     
-    static func dayColor() -> UIColor {
+    static func dayColorGood() -> UIColor {
         
         return UIColor(red: 0.906, green: 0.960, blue: 1.000, alpha: 1.00)
     }
     
+    static func dayColor() -> UIColor {
+        
+        return UIColor(red: 0.882, green: 0.961, blue: 0.996, alpha: 1.00)
+    }
+    
     static func nightColor() -> UIColor {
         
-        return UIColor(red: 0.286, green: 0.521, blue: 0.767, alpha: 1.00)
+        return UIColor(red: 0.251, green: 0.769, blue: 1.000, alpha: 1.00)
     }
 }
 
-//[UIColor colorWithRed:0.286 green:0.521 blue:0.767 alpha:1.00]
+
+//[UIColor colorWithRed:0.882 green:0.961 blue:0.996 alpha:1.00]//
+//
+//[UIColor colorWithRed:0.251 green:0.769 blue:1.000 alpha:1.00]
