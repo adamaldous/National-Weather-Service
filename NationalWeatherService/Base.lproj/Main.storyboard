@@ -15,6 +15,7 @@
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="sectionIndexBackgroundColor" red="0.5" green="0.0" blue="0.5" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="currentWeatherCell" rowHeight="228" id="lLS-rY-nXb" customClass="CurrentWeatherTableViewCell" customModule="NationalWeatherService" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="320" height="228"/>
@@ -215,7 +216,7 @@
                                                         </mask>
                                                     </variation>
                                                 </stackView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Detail Description" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="omP-nA-UFb">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Detail Description" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="omP-nA-UFb">
                                                     <rect key="frame" x="0.0" y="78" width="304" height="76"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -274,7 +275,6 @@
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="sectionIndexBackgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="currentLocationCell" textLabel="zkE-wH-pvj" style="IBUITableViewCellStyleDefault" id="UHZ-L7-vNF" userLabel="currentLocationCell">
                                 <rect key="frame" x="0.0" y="28" width="320" height="44"/>
@@ -317,13 +317,62 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Select Location" id="lIX-me-b5I">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="Y9P-1j-bIN"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="Y9P-1j-bIN">
+                            <connections>
+                                <segue destination="JlJ-ao-bNu" kind="show" id="S6Z-QQ-ml8"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="psO-vJ-wkY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1558" y="392"/>
+        </scene>
+        <!--MapVC-->
+        <scene sceneID="xqq-Un-sIb">
+            <objects>
+                <viewController id="JlJ-ao-bNu" customClass="MapVC" customModule="NationalWeatherService" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="GDW-q5-Ris"/>
+                        <viewControllerLayoutGuide type="bottom" id="siF-wI-kKp"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="WQD-Db-SLC">
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" rotateEnabled="NO" pitchEnabled="NO" showsUserLocation="YES" showsBuildings="NO" showsPointsOfInterest="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O65-kP-A3S">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
+                            </mapView>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter location or long press on map" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3W6-lj-gU4" userLabel="Location Search">
+                                <rect key="frame" x="16" y="16" width="288" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="fkQ-Zg-V6l"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="3W6-lj-gU4" firstAttribute="trailing" secondItem="WQD-Db-SLC" secondAttribute="trailingMargin" id="EbV-y2-4E9"/>
+                            <constraint firstItem="O65-kP-A3S" firstAttribute="leading" secondItem="WQD-Db-SLC" secondAttribute="leading" id="RY8-wk-okK"/>
+                            <constraint firstItem="O65-kP-A3S" firstAttribute="top" secondItem="GDW-q5-Ris" secondAttribute="bottom" id="c0b-OH-E6T"/>
+                            <constraint firstItem="3W6-lj-gU4" firstAttribute="top" secondItem="GDW-q5-Ris" secondAttribute="bottom" constant="16" id="cgX-pv-RHi"/>
+                            <constraint firstAttribute="trailing" secondItem="O65-kP-A3S" secondAttribute="trailing" id="miq-37-cSj"/>
+                            <constraint firstItem="siF-wI-kKp" firstAttribute="top" secondItem="O65-kP-A3S" secondAttribute="bottom" id="nAu-cp-HA2"/>
+                            <constraint firstItem="3W6-lj-gU4" firstAttribute="leading" secondItem="WQD-Db-SLC" secondAttribute="leadingMargin" id="rud-6h-6Vl"/>
+                        </constraints>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <outlet property="locationSearchTextField" destination="3W6-lj-gU4" id="WHg-jW-c7J"/>
+                        <outlet property="mapView" destination="O65-kP-A3S" id="Oc5-yR-N4r"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pJs-QY-XLx" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1967" y="392"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="A50-rI-VoM">

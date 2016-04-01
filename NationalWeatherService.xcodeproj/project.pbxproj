@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		961F67661CA9E0A3005295B4 /* LocationTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961F67651CA9E0A3005295B4 /* LocationTableVC.swift */; };
+		9634EF691CAF061A00997560 /* MapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9634EF681CAF061A00997560 /* MapVC.swift */; };
+		9634EF6B1CAF062600997560 /* MapController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9634EF6A1CAF062600997560 /* MapController.swift */; };
 		964647691CADE43700BC9986 /* CurrentLocationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964647681CADE43700BC9986 /* CurrentLocationTableViewCell.swift */; };
 		9646476B1CADE45300BC9986 /* SavedLocationsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9646476A1CADE45300BC9986 /* SavedLocationsTableViewCell.swift */; };
 		96B0D0511CA5B68D0022413B /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B0D0501CA5B68D0022413B /* Location.swift */; };
@@ -27,6 +29,8 @@
 
 /* Begin PBXFileReference section */
 		961F67651CA9E0A3005295B4 /* LocationTableVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationTableVC.swift; sourceTree = "<group>"; };
+		9634EF681CAF061A00997560 /* MapVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapVC.swift; sourceTree = "<group>"; };
+		9634EF6A1CAF062600997560 /* MapController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapController.swift; sourceTree = "<group>"; };
 		964647681CADE43700BC9986 /* CurrentLocationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentLocationTableViewCell.swift; sourceTree = "<group>"; };
 		9646476A1CADE45300BC9986 /* SavedLocationsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SavedLocationsTableViewCell.swift; path = ../SavedLocationsTableViewCell.swift; sourceTree = "<group>"; };
 		96B0D0501CA5B68D0022413B /* Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
@@ -70,6 +74,7 @@
 		96B0D0531CA5B6EF0022413B /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				9634EF6A1CAF062600997560 /* MapController.swift */,
 				96D588D51CAB0E9800EADFA3 /* LocationController.swift */,
 				96C9E88F1CA1DD1500ED1E88 /* ForecastController.swift */,
 				96C9E88D1CA1BF8D00ED1E88 /* NetworkController.swift */,
@@ -80,6 +85,7 @@
 		96B0D0541CA5B7090022413B /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				9634EF681CAF061A00997560 /* MapVC.swift */,
 				961F67651CA9E0A3005295B4 /* LocationTableVC.swift */,
 				96C9E8891CA1B24E00ED1E88 /* ForecastTableVC.swift */,
 			);
@@ -211,7 +217,9 @@
 				96B0D0511CA5B68D0022413B /* Location.swift in Sources */,
 				96C9E8921CA1F11B00ED1E88 /* ForecastTableViewCell.swift in Sources */,
 				96C9E8901CA1DD1500ED1E88 /* ForecastController.swift in Sources */,
+				9634EF691CAF061A00997560 /* MapVC.swift in Sources */,
 				96CDE2251CA489B700D626B6 /* CurrentWeatherTableViewCell.swift in Sources */,
+				9634EF6B1CAF062600997560 /* MapController.swift in Sources */,
 				9646476B1CADE45300BC9986 /* SavedLocationsTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
