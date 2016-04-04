@@ -36,23 +36,44 @@ extension UIColor {
         return UIColor(red: 0.906, green: 0.960, blue: 1.000, alpha: 1.00)
     }
     
-    static func dayColorGood() -> UIColor {
+    static func currrentColor() -> UIColor {
         
-        return UIColor(red: 0.906, green: 0.960, blue: 1.000, alpha: 1.00)
+        return UIColor(red: 0.659, green: 0.839, blue: 0.9215, alpha: 1.00)
     }
     
     static func dayColor() -> UIColor {
         
-        return UIColor(red: 0.882, green: 0.961, blue: 0.996, alpha: 1.00)
+        return UIColor(red: 0.506, green: 0.831, blue: 0.980, alpha: 1.00)
     }
     
     static func nightColor() -> UIColor {
         
-        return UIColor(red: 0.251, green: 0.769, blue: 1.000, alpha: 1.00)
+        return UIColor(red: 0.812, green: 0.847, blue: 0.863, alpha: 1.00)
     }
 }
 
-
+// Good placeholder
 //[UIColor colorWithRed:0.882 green:0.961 blue:0.996 alpha:1.00]//
 //
 //[UIColor colorWithRed:0.251 green:0.769 blue:1.000 alpha:1.00]
+
+
+// NWS Option 1
+// Day
+//[UIColor colorWithRed:0.506 green:0.831 blue:0.980 alpha:1.00]
+// Night
+//[UIColor colorWithRed:0.812 green:0.847 blue:0.863 alpha:1.00]
+// Table Grey
+//[UIColor colorWithRed:0.471 green:0.565 blue:0.612 alpha:1.00]
+// Purple
+//[UIColor colorWithRed:0.478 green:0.188 blue:0.424 alpha:1.00]
+// Mint
+//[UIColor colorWithRed:0.506 green:0.957 blue:0.584 alpha:1.00]
+// Rust
+//[UIColor colorWithRed:0.576 green:0.122 blue:0.114 alpha:1.00]
+
+
+
+
+
+

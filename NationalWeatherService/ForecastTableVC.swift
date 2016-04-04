@@ -47,6 +47,8 @@ class ForecastTableVC: UITableViewController, CLLocationManagerDelegate {
         self.locationManager.requestWhenInUseAuthorization()
         
         
+        
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -119,6 +121,18 @@ class ForecastTableVC: UITableViewController, CLLocationManagerDelegate {
                     cell.lastUpdatedLabel.hidden = true
                 }
                 
+                if forecast.day[0].containsString("Tonight") || forecast.day[indexPath.row].containsString(" Night") {
+                    cell.backgroundColor = UIColor.dayColor()
+                    cell.backgroundColor = UIColor.currrentColor()
+
+//                    cell.currentTempLabel.textColor = UIColor.blueColor()
+                } else {
+                    cell.backgroundColor = UIColor.nightColor()
+                    cell.backgroundColor = UIColor.currrentColor()
+
+//                    cell.currentTempLabel.textColor = UIColor.redColor()
+                }
+                
                 cell.currentTempLabel.text = "\(forecast.currentTemp)°F"
                 cell.currentBasicDescriptionLabel.text = forecast.currentBasicDescription
                 cell.windLabel.text = "Wind: \(forecast.windDirection) at \(forecast.windSpeed) MPH"
@@ -186,20 +200,6 @@ class ForecastTableVC: UITableViewController, CLLocationManagerDelegate {
     }
     
     
-    
-    //
-    //    func calculateHeightForString(inString:String) -> CGFloat {
-    //        let messageString = inString
-    //        let attributes = [NSFontAttributeName: UIFont.systemFontOfSize(19.0)]
-    //        let attrString:NSAttributedString? = NSAttributedString(string: messageString, attributes: attributes)
-    //        let rect:CGRect = attrString!.boundingRectWithSize(CGSizeMake(300.0,CGFloat.max), options: NSStringDrawingOptions.UsesLineFragmentOrigin, context:nil )//hear u will get nearer height not the exact value
-    //        let requredSize:CGRect = rect
-    //        return requredSize.height  //to include button's in your tableview
-    //
-    //    }
-    
-    
-    
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if let cell = tableView.cellForRowAtIndexPath(indexPath) as? ForecastTableViewCell,
             forecast = forecast {
@@ -218,24 +218,6 @@ class ForecastTableVC: UITableViewController, CLLocationManagerDelegate {
         }
     }
     
-    
-    //    override func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
-    //        if let cell = tableView.cellForRowAtIndexPath(indexPath) as? ForecastTableViewCell {
-    //
-    //            tableView.beginUpdates()
-    //            //            for index in selectedIndexes {
-    //            //                if indexPath.row == index {
-    //            //                    selectedIndexes.removeAtIndex(index)
-    //            //                }
-    //            //            }
-    //            selectedIndexes = selectedIndexes.filter{$0 != indexPath.row}
-    //
-    //            tableView.endUpdates()
-    //            //            cell.detailDescriptionLabel.numberOfLines = 1
-    //            //            cell.detailDescriptionLabel.hidden = true
-    //        }
-    //    }
-    //
     
     /*
      // Override to support conditional editing of the table view.
