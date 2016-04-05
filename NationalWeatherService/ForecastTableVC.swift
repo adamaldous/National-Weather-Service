@@ -46,7 +46,7 @@ class ForecastTableVC: UITableViewController, CLLocationManagerDelegate {
         
         self.locationManager.requestWhenInUseAuthorization()
         
-        
+//        LocationController.sharedController.locationManager.requestLocation()
         
         
     }
@@ -84,7 +84,11 @@ class ForecastTableVC: UITableViewController, CLLocationManagerDelegate {
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         if section == 0 {
-            return 1
+            if let _ = forecast {
+                return 1
+            } else {
+                return 0
+            }
         } else {
             if let forecast = forecast {
                 return forecast.basicDescription.count
@@ -103,21 +107,11 @@ class ForecastTableVC: UITableViewController, CLLocationManagerDelegate {
             
             if let forecast = forecast {
                 
-                if forecast.selected[indexPath.row] {
-                    cell.windLabel.hidden = false
-                    cell.barometerLabel.hidden = false
-                    cell.dewpointLabel.hidden = false
-                    cell.windChillLabel.hidden = false
-                    cell.visibilityLabel.hidden = false
-                    cell.humidityLabel.hidden = false
+                if forecast.currentConditionsSelected {
+                    cell.currentConditionsStackView.hidden = false
                     cell.lastUpdatedLabel.hidden = false
                 } else {
-                    cell.windLabel.hidden = true
-                    cell.barometerLabel.hidden = true
-                    cell.dewpointLabel.hidden = true
-                    cell.windChillLabel.hidden = true
-                    cell.visibilityLabel.hidden = true
-                    cell.humidityLabel.hidden = true
+                    cell.currentConditionsStackView.hidden = true
                     cell.lastUpdatedLabel.hidden = true
                 }
                 
@@ -192,7 +186,7 @@ class ForecastTableVC: UITableViewController, CLLocationManagerDelegate {
     }
     
     override func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 70
+        return 100
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
@@ -201,19 +195,19 @@ class ForecastTableVC: UITableViewController, CLLocationManagerDelegate {
     
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if let cell = tableView.cellForRowAtIndexPath(indexPath) as? ForecastTableViewCell,
+        if let _ = tableView.cellForRowAtIndexPath(indexPath) as? ForecastTableViewCell,
             forecast = forecast {
             tableView.beginUpdates()
             forecast.selected[indexPath.row] = !forecast.selected[indexPath.row]
-            tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+            tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
             tableView.endUpdates()
         }
         
-        if let cell = tableView.cellForRowAtIndexPath(indexPath) as? CurrentWeatherTableViewCell,
+        if let _ = tableView.cellForRowAtIndexPath(indexPath) as? CurrentWeatherTableViewCell,
             forecast = forecast {
             tableView.beginUpdates()
-            forecast.selected[indexPath.row] = !forecast.selected[indexPath.row]
-            tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+            forecast.currentConditionsSelected = !forecast.currentConditionsSelected
+            tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
             tableView.endUpdates()
         }
     }

@@ -20,6 +20,7 @@ class CurrentWeatherTableViewCell: UITableViewCell {
     @IBOutlet weak var windChillLabel: UILabel!
     @IBOutlet weak var visibilityLabel: UILabel!
     @IBOutlet weak var humidityLabel: UILabel!
+    @IBOutlet weak var currentConditionsStackView: UIStackView!
     
     
     override func awakeFromNib() {

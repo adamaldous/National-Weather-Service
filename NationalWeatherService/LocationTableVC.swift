@@ -11,8 +11,6 @@ import CoreLocation
 
 class LocationTableVC: UITableViewController, CLLocationManagerDelegate, LocationControllerDelegate {
     
-    
-    
     var locations: [Location] = []
     
     var location0: Location? {
@@ -34,8 +32,8 @@ class LocationTableVC: UITableViewController, CLLocationManagerDelegate, Locatio
                 NSUserDefaults.standardUserDefaults().removeObjectForKey("location")
             }
         }
-        
     }
+    
     let location1 = Location(name: "Home", location: CLLocation(latitude: 40.6561, longitude: -111.835))
     let location2 = Location(name: "Snowbird", location: CLLocation(latitude: 40.5819, longitude: -111.6544))
     let location3 = Location(name: "Palm Springs", location: CLLocation(latitude: 33.8285, longitude: -116.5067))
@@ -45,7 +43,8 @@ class LocationTableVC: UITableViewController, CLLocationManagerDelegate, Locatio
     override func viewDidLoad() {
         super.viewDidLoad()
         LocationController.sharedController.delegate = self
-//        LocationController.sharedController.locationManager.requestLocation()
+        LocationController.sharedController.locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        LocationController.sharedController.locationManager.requestLocation()
         self.locations = [location1, location2, location3]
         
     }
@@ -62,7 +61,6 @@ class LocationTableVC: UITableViewController, CLLocationManagerDelegate, Locatio
             LocationController.sharedController.locationManager.requestLocation()
         }
     }
-    
     
     
     // MARK: - Table view data source
@@ -95,7 +93,10 @@ class LocationTableVC: UITableViewController, CLLocationManagerDelegate, Locatio
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        selectedLocation = locations[indexPath.row]
+        var selectedLocation = location0
+        if indexPath.section != 0 {
+            selectedLocation = locations[indexPath.row]
+        }
         (self.navigationController?.viewControllers.first as? ForecastTableVC)?.location = selectedLocation
         self.navigationController?.popViewControllerAnimated(true)
     }

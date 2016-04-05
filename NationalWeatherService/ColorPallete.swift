@@ -38,7 +38,7 @@ extension UIColor {
     
     static func currrentColor() -> UIColor {
         
-        return UIColor(red: 0.659, green: 0.839, blue: 0.9215, alpha: 1.00)
+        return UIColor(red: 0.235, green: 0.310, blue: 0.463, alpha: 1.00)
     }
     
     static func dayColor() -> UIColor {
@@ -67,12 +67,10 @@ extension UIColor {
 //[UIColor colorWithRed:0.471 green:0.565 blue:0.612 alpha:1.00]
 // Purple
 //[UIColor colorWithRed:0.478 green:0.188 blue:0.424 alpha:1.00]
-// Mint
-//[UIColor colorWithRed:0.506 green:0.957 blue:0.584 alpha:1.00]
-// Rust
-//[UIColor colorWithRed:0.576 green:0.122 blue:0.114 alpha:1.00]
-
-
+// Dark
+//[UIColor colorWithRed:0.235 green:0.310 blue:0.463 alpha:1.00]
+// Current Color
+//UIColor(red: 0.659, green: 0.839, blue: 0.9215, alpha: 1.00)
 
 
 

@@ -42,6 +42,7 @@ class Forecast {
     var day: [String] = []
     var temp: [String] = []
     
+    var currentConditionsSelected = false
     var currentImageString: String = ""
     var currentBasicDescription: String = ""
     var currentTemp: String = ""

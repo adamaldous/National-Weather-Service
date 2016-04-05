@@ -8,19 +8,23 @@
 
 import Foundation
 import CoreLocation
+import UIKit
 
-class LocationController {
+class LocationController: NSObject, CLLocationManagerDelegate {
     
     private let kLocations = "locations"
     let locationManager = CLLocationManager()
     var locations: [Location]
+    var currentLocation: Location?
     static let sharedController = LocationController()
     var delegate: LocationControllerDelegate?
     
-    init() {
-        
+    override init() {
         self.locations = []
+        super.init()
+        locationManager.delegate = self
         
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(LocationController.requestLocation), name: UIApplicationDidBecomeActiveNotification, object: nil)
         //        locations.append(location1)
         //        locations.append(location2)
         //        locations.append(location3)
@@ -28,6 +32,10 @@ class LocationController {
         //        self.saveToPersistentStorage()
         
         self.loadFromPersistentStorage()
+    }
+    
+    func requestLocation() {
+        self.locationManager.requestLocation()
     }
     
     func addLocation(location: Location) {
@@ -65,6 +73,7 @@ class LocationController {
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location = locations.last else {delegate?.locationChanged(nil); return}
         delegate?.locationChanged(location)
+        currentLocation = Location(name: "Current Location", location: location)
     }
     
     func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
