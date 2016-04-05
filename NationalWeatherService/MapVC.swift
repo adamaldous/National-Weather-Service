@@ -19,6 +19,8 @@ class MapVC: UIViewController, MKMapViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        mapView.delegate = self
+        
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestWhenInUseAuthorization()
@@ -80,6 +82,43 @@ class MapVC: UIViewController, MKMapViewDelegate {
         mapView.setRegion(region, animated: true)
         mapView.selectAnnotation(annotation, animated: true)
     }
+    
+    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
+        let identifier = "pin"
+        var view: MKPinAnnotationView
+        if let dequeuedView = mapView.dequeueReusableAnnotationViewWithIdentifier(identifier)
+            as? MKPinAnnotationView { // 2
+            dequeuedView.annotation = annotation
+            view = dequeuedView
+        }
+            
+        else
+        {
+//            view = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+//            view.canShowCallout = true
+//            view.calloutOffset = CGPoint(x: -5, y: 5)
+//            view.rightCalloutAccessoryView = UIButton(type: UIButtonType.DetailDisclosure)
+            return nil
+        }
+        return view
+    }
+    
+    func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        let alert = UIAlertController(title: nil, message: "Enter a name", preferredStyle: .Alert)
+        alert.addTextFieldWithConfigurationHandler { (textField) in
+            textField.placeholder = "location name"
+            
+        }
+        let action = UIAlertAction(title: "Save", style: .Default) { (_) in
+            let tf = alert.textFields![0] as UITextField
+            
+        }
+        let cancel = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+        alert.addAction(action)
+        alert.addAction(cancel)
+        self.presentViewController(alert, animated: true, completion: nil)
+    }
+    
     
     
     /*
