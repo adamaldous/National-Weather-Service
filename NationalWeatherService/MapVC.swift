@@ -15,6 +15,8 @@ class MapVC: UIViewController, MKMapViewDelegate {
     let locationManager = CLLocationManager()
     var resultSearchController: UISearchController? = nil
     var tappedPin: MKPointAnnotation? = nil
+    var placemark: MKPlacemark? = nil
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -102,19 +104,40 @@ class MapVC: UIViewController, MKMapViewDelegate {
             view.canShowCallout = true
             view.calloutOffset = CGPoint(x: -5, y: 5)
             view.rightCalloutAccessoryView = UIButton(type: UIButtonType.DetailDisclosure)
-//            return nil
+            //            return nil
         }
         return view
     }
     
     func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
-        let alert = UIAlertController(title: nil, message: "Enter a name", preferredStyle: .Alert)
+        let alert = UIAlertController(title: nil, message: "Save this location", preferredStyle: .Alert)
+        //        alert.message = UIFont(name: "System - System", size: 19)
         alert.addTextFieldWithConfigurationHandler { (textField) in
-            textField.placeholder = "location name"
+            textField.placeholder = "Name"
+            textField.autocapitalizationType = UITextAutocapitalizationType.Words
+            textField.font = UIFont(name: "System", size: 10)
+            
             
         }
         let action = UIAlertAction(title: "Save", style: .Default) { (_) in
-            let tf = alert.textFields![0] as UITextField
+            let textField = alert.textFields![0] as UITextField
+            if let text = textField.text {
+                
+                if let tappedPin = self.tappedPin {
+                    let location = Location(name: text, location: CLLocation(latitude: tappedPin.coordinate.latitude, longitude: tappedPin.coordinate.longitude))
+                    LocationController.sharedController.addLocation(location)
+                    (self.navigationController?.viewControllers.first as? LocationTableVC)?.tableView.reloadData()
+                    
+                } else {
+                    if let placemark = self.placemark
+                    {
+                        let location = Location(name: text, location: CLLocation(latitude: placemark.coordinate.latitude, longitude: placemark.coordinate.longitude))
+                        LocationController.sharedController.addLocation(location)
+                        (self.navigationController?.viewControllers.first as? LocationTableVC)?.tableView.reloadData()
+                    }
+                }
+            }
+            self.navigationController?.popViewControllerAnimated(true)
             
         }
         let cancel = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
@@ -142,7 +165,7 @@ class MapVC: UIViewController, MKMapViewDelegate {
 extension MapVC: CLLocationManagerDelegate {
     func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
         if status == .AuthorizedWhenInUse {
-            locationManager.requestLocation()
+//            locationManager.requestLocation()
         }
     }
     
@@ -161,6 +184,9 @@ extension MapVC: CLLocationManagerDelegate {
 
 extension MapVC: HandleMapSearch {
     func dropPinZoomIn(placemark: MKPlacemark){
+        
+        // cache the pin
+        self.placemark = placemark
         
         // clear existing pins
         mapView.removeAnnotations(mapView.annotations)

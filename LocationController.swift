@@ -23,15 +23,13 @@ class LocationController: NSObject, CLLocationManagerDelegate {
         self.locations = []
         super.init()
         locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(LocationController.requestLocation), name: UIApplicationDidBecomeActiveNotification, object: nil)
-        //        locations.append(location1)
-        //        locations.append(location2)
-        //        locations.append(location3)
-        //
+        
         //        self.saveToPersistentStorage()
         
-        self.loadFromPersistentStorage()
+        //        self.loadFromPersistentStorage()
     }
     
     func requestLocation() {
@@ -68,12 +66,18 @@ class LocationController: NSObject, CLLocationManagerDelegate {
         NSUserDefaults.standardUserDefaults().setObject(locationDictionaries, forKey: kLocations)
     }
     
-    
+    func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
+        if status == .AuthorizedWhenInUse {
+            self.requestLocation()
+        }
+    }
     
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location = locations.last else {delegate?.locationChanged(nil); return}
-        delegate?.locationChanged(location)
+//        delegate?.locationChanged(location)
         currentLocation = Location(name: "Current Location", location: location)
+        NSNotificationCenter.defaultCenter().postNotificationName("CurrentLocationNotification", object: nil)
+        
     }
     
     func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {

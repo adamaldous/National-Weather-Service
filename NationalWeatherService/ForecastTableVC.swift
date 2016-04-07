@@ -14,7 +14,7 @@ class ForecastTableVC: UITableViewController, CLLocationManagerDelegate {
     
     let kCurrentWeatherImage = "http://forecast.weather.gov/newimages/medium/"
     
-    let locationManager = CLLocationManager()
+    let locationManager = LocationController.sharedController.locationManager
     
     var forecast: Forecast?
     
@@ -44,8 +44,14 @@ class ForecastTableVC: UITableViewController, CLLocationManagerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.locationManager.requestWhenInUseAuthorization()
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ForecastTableVC.updateCurrentLocation), name: "CurrentLocationNotification", object: nil)
         
+//        let status = CLLocationManager.authorizationStatus()
+//        if status == CLAuthorizationStatus.NotDetermined {
+//            self.locationManager.requestWhenInUseAuthorization()
+//        } else if status == CLAuthorizationStatus.Denied {
+//            self.locationManager.requestWhenInUseAuthorization()
+//        }
 //        LocationController.sharedController.locationManager.requestLocation()
         
         
@@ -58,9 +64,15 @@ class ForecastTableVC: UITableViewController, CLLocationManagerDelegate {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        
+        
+        
+        
         guard let location = location else {return}
         
         // Do a check to see if location is in the US
+        
+
         
         navigationItem.title = location.name
         
@@ -70,6 +82,38 @@ class ForecastTableVC: UITableViewController, CLLocationManagerDelegate {
             
             dispatch_async(dispatch_get_main_queue()) { () in
                 self.tableView.reloadData()
+            }
+        }
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        let status = CLLocationManager.authorizationStatus()
+        if status == CLAuthorizationStatus.NotDetermined {
+            self.locationManager.requestWhenInUseAuthorization()
+        } else if status == CLAuthorizationStatus.Denied {
+            self.locationManager.requestWhenInUseAuthorization()
+        } else if status == CLAuthorizationStatus.AuthorizedWhenInUse {
+            LocationController.sharedController.locationManager.requestLocation()
+        }
+
+    }
+    
+    func updateCurrentLocation() {
+//        location = LocationController.sharedController.currentLocation
+        
+        if location?.name == "Current Location" {
+            
+            guard let location = location else {return}
+            // Do a check to see if location is in the US
+            navigationItem.title = location.name
+            
+            ForecastController.getWeather(location.latlon) { (result) -> Void in
+                guard let result = result else { return }
+                self.forecast = result
+                
+                dispatch_async(dispatch_get_main_queue()) { () in
+                    self.tableView.reloadData()
+                }
             }
         }
     }

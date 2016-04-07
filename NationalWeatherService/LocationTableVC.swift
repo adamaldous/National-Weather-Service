@@ -11,7 +11,7 @@ import CoreLocation
 
 class LocationTableVC: UITableViewController, CLLocationManagerDelegate, LocationControllerDelegate {
     
-    var locations: [Location] = []
+    //    var locations: [Location] = [Location(name: "Home", location: CLLocation(latitude: 40.6561, longitude: -111.835)), Location(name: "Snowbird", location: CLLocation(latitude: 40.5819, longitude: -111.6544)), Location(name: "Palm Springs", location: CLLocation(latitude: 33.8285, longitude: -116.5067))]
     
     var location0: Location? {
         get {
@@ -29,24 +29,33 @@ class LocationTableVC: UITableViewController, CLLocationManagerDelegate, Locatio
                 let locationDictionary = location.dictionaryCopy
                 NSUserDefaults.standardUserDefaults().setObject(locationDictionary, forKey: "currentLocation")
             } else {
-                NSUserDefaults.standardUserDefaults().removeObjectForKey("location")
+                NSUserDefaults.standardUserDefaults().removeObjectForKey("currentLocation")
             }
         }
     }
     
-    let location1 = Location(name: "Home", location: CLLocation(latitude: 40.6561, longitude: -111.835))
-    let location2 = Location(name: "Snowbird", location: CLLocation(latitude: 40.5819, longitude: -111.6544))
-    let location3 = Location(name: "Palm Springs", location: CLLocation(latitude: 33.8285, longitude: -116.5067))
+    //    let location1 = Location(name: "Home", location: CLLocation(latitude: 40.6561, longitude: -111.835))
+    //    let location2 = Location(name: "Snowbird", location: CLLocation(latitude: 40.5819, longitude: -111.6544))
+    //    let location3 = Location(name: "Palm Springs", location: CLLocation(latitude: 33.8285, longitude: -116.5067))
     
     internal var selectedLocation: Location?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        
+        //        LocationController.sharedController.locationManager.requestLocation()
+        //        self.locations = [location1, location2, location3]
+        
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
         LocationController.sharedController.delegate = self
         LocationController.sharedController.locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        LocationController.sharedController.locationManager.requestLocation()
-        self.locations = [location1, location2, location3]
-        
+        LocationController.sharedController.loadFromPersistentStorage()
+        tableView.reloadData()
     }
     
     override func didReceiveMemoryWarning() {
@@ -56,7 +65,7 @@ class LocationTableVC: UITableViewController, CLLocationManagerDelegate, Locatio
     
     func locationChanged(location: CLLocation?) {
         if let location = location {
-            location0 = Location(name: "Current Location", location: location)
+            location0 = Location(name: "Current Location", location: CLLocation(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude))
         } else {
             LocationController.sharedController.locationManager.requestLocation()
         }
@@ -75,7 +84,7 @@ class LocationTableVC: UITableViewController, CLLocationManagerDelegate, Locatio
         if section == 0 {
             return 1
         }
-        return locations.count
+        return LocationController.sharedController.locations.count
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -87,18 +96,40 @@ class LocationTableVC: UITableViewController, CLLocationManagerDelegate, Locatio
         } else {
             
             let cell = tableView.dequeueReusableCellWithIdentifier("savedLocationsCell", forIndexPath: indexPath)
-            cell.textLabel?.text = locations[indexPath.row].name
+            cell.textLabel?.text = LocationController.sharedController.locations[indexPath.row].name
             return cell
         }
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        var selectedLocation = location0
+        //        var selectedLocation = location0
         if indexPath.section != 0 {
-            selectedLocation = locations[indexPath.row]
+            selectedLocation = LocationController.sharedController.locations[indexPath.row]
+            (self.navigationController?.viewControllers.first as? ForecastTableVC)?.location = LocationController.sharedController.locations[indexPath.row]
+        } else {
+            selectedLocation = LocationController.sharedController.currentLocation
+            (self.navigationController?.viewControllers.first as? ForecastTableVC)?.location = LocationController.sharedController.currentLocation
         }
-        (self.navigationController?.viewControllers.first as? ForecastTableVC)?.location = selectedLocation
         self.navigationController?.popViewControllerAnimated(true)
+    }
+    
+    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        
+        if editingStyle == .Delete {
+            
+            if indexPath.section != 0 {
+                selectedLocation = LocationController.sharedController.locations[indexPath.row]
+                if let location = selectedLocation {
+                    LocationController.sharedController.removeLocation(location)
+                    tableView.reloadData()
+                }
+            }
+            
+            //            let person = PersonController.sharedController.people[indexPath.row]
+            //            PersonController.sharedController.removePerson(person)
+            //            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+            //            tableView.reloadData()
+        }
     }
     
     /*

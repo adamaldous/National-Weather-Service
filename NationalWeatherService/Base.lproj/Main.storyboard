@@ -7,7 +7,7 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--Forecast TableVC-->
+        <!--Current Location-->
         <scene sceneID="p2W-HX-53o">
             <objects>
                 <tableViewController id="561-vy-OcZ" customClass="ForecastTableVC" customModule="NationalWeatherService" customModuleProvider="target" sceneMemberID="viewController">
@@ -267,7 +267,7 @@
                             <outlet property="delegate" destination="561-vy-OcZ" id="P7J-Bz-SOw"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="5AB-0x-P4J">
+                    <navigationItem key="navigationItem" title="Current Location" id="5AB-0x-P4J">
                         <barButtonItem key="rightBarButtonItem" image="Location" id="eEC-LQ-6dd" userLabel="Location Button">
                             <connections>
                                 <segue destination="VYz-e5-8Fq" kind="show" id="4Nj-pL-VYN"/>
@@ -316,7 +316,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Xgn-69-7zR">
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Xgn-69-7zR">
                                             <rect key="frame" x="15" y="0.0" width="290" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="19"/>
@@ -358,7 +358,7 @@
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" rotateEnabled="NO" pitchEnabled="NO" showsUserLocation="YES" showsBuildings="NO" showsPointsOfInterest="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SPv-Tq-XQs">
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" rotateEnabled="NO" pitchEnabled="NO" showsUserLocation="YES" showsPointsOfInterest="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SPv-Tq-XQs">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
                                 <connections>
                                     <outlet property="delegate" destination="UoQ-1u-pXa" id="9TI-cN-ljs"/>
