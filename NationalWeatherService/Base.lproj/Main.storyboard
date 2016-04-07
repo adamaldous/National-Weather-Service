@@ -276,9 +276,9 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Current Location" id="5AB-0x-P4J">
-                        <barButtonItem key="rightBarButtonItem" image="Location" id="eEC-LQ-6dd" userLabel="Location Button">
+                        <barButtonItem key="rightBarButtonItem" image="Marker" id="eEC-LQ-6dd" userLabel="Location Button">
                             <connections>
-                                <segue destination="VYz-e5-8Fq" kind="show" id="4Nj-pL-VYN"/>
+                                <segue destination="VYz-e5-8Fq" kind="show" identifier="toLocations" id="4Nj-pL-VYN"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -467,6 +467,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Location" width="33" height="33"/>
+        <image name="Marker" width="33" height="33"/>
     </resources>
 </document>

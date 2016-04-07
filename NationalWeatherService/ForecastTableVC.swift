@@ -10,16 +10,12 @@ import UIKit
 import CoreLocation
 import MapKit
 
-class ForecastTableVC: UITableViewController, CLLocationManagerDelegate {
+class ForecastTableVC: UITableViewController, CLLocationManagerDelegate, whenCellSelected {
     
     let kCurrentWeatherImage = "http://forecast.weather.gov/newimages/medium/"
-    
-    
     let locationManager = LocationController.sharedController.locationManager
-    
     var forecast: Forecast?
-    var originalCellHeight: CGFloat = 0.0
-    
+//    var delegate : whenCellSelected?
     var location: Location? {
         get {
             if let locationDictionary = NSUserDefaults.standardUserDefaults().objectForKey("location") as? [String: AnyObject],
@@ -41,32 +37,23 @@ class ForecastTableVC: UITableViewController, CLLocationManagerDelegate {
         }
     }
     
+    func locationSelected() {
+        self.forecast?.basicDescription = []
+        tableView.reloadData()
+    }
+    
     var images: [UIImage] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
+     //   delegate = self
+        
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ForecastTableVC.updateCurrentLocation), name: "CurrentLocationNotification", object: nil)
-        
-        
-    UIApplication.sharedApplication().networkActivityIndicatorVisible = true
-        
-        
-        
-        //        let status = CLLocationManager.authorizationStatus()
-        //        if status == CLAuthorizationStatus.NotDetermined {
-        //            self.locationManager.requestWhenInUseAuthorization()
-        //        } else if status == CLAuthorizationStatus.Denied {
-        //            self.locationManager.requestWhenInUseAuthorization()
-        //        }
-        //        LocationController.sharedController.locationManager.requestLocation()
-        
-        
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -74,25 +61,6 @@ class ForecastTableVC: UITableViewController, CLLocationManagerDelegate {
         
         makeNetworkCall()
         UIApplication.sharedApplication().networkActivityIndicatorVisible = true
-        
-//        guard let location = location else {return}
-//        
-//        // Do a check to see if location is in the US
-//        
-//        
-//        
-//        navigationItem.title = location.name
-//        
-//        ForecastController.getWeather(location.latlon) { (result) -> Void in
-//            guard let result = result else { return }
-//            self.forecast = result
-//            
-//            dispatch_async(dispatch_get_main_queue()) { () in
-//                self.tableView.tableHeaderView?.hidden = true
-//                self.tableView.reloadData()
-////                self.networkCallActivity.stopAnimating()
-//            }
-//        }
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -113,8 +81,10 @@ class ForecastTableVC: UITableViewController, CLLocationManagerDelegate {
     }
     
     func makeNetworkCall() {
+       
         guard let location = location else {return}
         navigationItem.title = location.name
+        UIApplication.sharedApplication().networkActivityIndicatorVisible = true
         ForecastController.getWeather(location.latlon) { (result) -> Void in
             guard let result = result else { return }
             self.forecast = result
@@ -140,8 +110,13 @@ class ForecastTableVC: UITableViewController, CLLocationManagerDelegate {
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         if section == 0 {
+            
             if let _ = forecast {
-                return 1
+                if forecast?.basicDescription.count > 0{
+                    return 1
+                }else{
+                    return 0
+                }
             } else {
                 return 0
             }
@@ -150,11 +125,9 @@ class ForecastTableVC: UITableViewController, CLLocationManagerDelegate {
                 return forecast.basicDescription.count
             } else {
                 return 0
-            }
+                }
         }
     }
-    
-    
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         if indexPath.section == 0 {
@@ -171,18 +144,7 @@ class ForecastTableVC: UITableViewController, CLLocationManagerDelegate {
                     cell.lastUpdatedLabel.hidden = true
                 }
                 
-                if forecast.day[0].containsString("Tonight") || forecast.day[indexPath.row].containsString(" Night") {
-                    cell.backgroundColor = UIColor.dayColor()
-                    cell.backgroundColor = UIColor.currrentColor()
-                    
-                    //                    cell.currentTempLabel.textColor = UIColor.blueColor()
-                } else {
-                    cell.backgroundColor = UIColor.nightColor()
-                    cell.backgroundColor = UIColor.currrentColor()
-                    
-                    //                    cell.currentTempLabel.textColor = UIColor.redColor()
-                }
-                
+                cell.backgroundColor = UIColor.currrentColor()
                 cell.currentTempLabel.text = "\(forecast.currentTemp)°F"
                 cell.currentBasicDescriptionLabel.text = forecast.currentBasicDescription
                 cell.windLabel.text = "Wind: \(forecast.windDirection) at \(forecast.windSpeed) MPH"
@@ -222,11 +184,11 @@ class ForecastTableVC: UITableViewController, CLLocationManagerDelegate {
                 }
                 
                 if forecast.day[indexPath.row].containsString("Tonight") || forecast.day[indexPath.row].containsString(" Night") {
-                    cell.backgroundColor = UIColor.nightColor()
                     cell.tempLabel.textColor = UIColor.blueColor()
+                    cell.backgroundColor = UIColor.nightColor()
                 } else {
-                    cell.backgroundColor = UIColor.dayColor()
                     cell.tempLabel.textColor = UIColor.redColor()
+                    cell.backgroundColor = UIColor.dayColor()
                 }
                 
                 cell.dayLabel.text = forecast.day[indexPath.row]
@@ -270,7 +232,17 @@ class ForecastTableVC: UITableViewController, CLLocationManagerDelegate {
             tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
             tableView.endUpdates()
         }
-    }    
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+        if segue.identifier == "toLocations"{
+            
+            let destinationVC = segue.destinationViewController as! LocationTableVC
+            destinationVC.delegate = self
+        }
+    }
+   
     
     /*
      // Override to support conditional editing of the table view.
