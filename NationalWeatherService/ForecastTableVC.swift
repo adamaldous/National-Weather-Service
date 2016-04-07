@@ -14,9 +14,11 @@ class ForecastTableVC: UITableViewController, CLLocationManagerDelegate {
     
     let kCurrentWeatherImage = "http://forecast.weather.gov/newimages/medium/"
     
+    
     let locationManager = LocationController.sharedController.locationManager
     
     var forecast: Forecast?
+    var originalCellHeight: CGFloat = 0.0
     
     var location: Location? {
         get {
@@ -46,6 +48,11 @@ class ForecastTableVC: UITableViewController, CLLocationManagerDelegate {
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ForecastTableVC.updateCurrentLocation), name: "CurrentLocationNotification", object: nil)
         
+        
+    UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+        
+        
+        
         //        let status = CLLocationManager.authorizationStatus()
         //        if status == CLAuthorizationStatus.NotDetermined {
         //            self.locationManager.requestWhenInUseAuthorization()
@@ -65,25 +72,27 @@ class ForecastTableVC: UITableViewController, CLLocationManagerDelegate {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
+        makeNetworkCall()
+        UIApplication.sharedApplication().networkActivityIndicatorVisible = true
         
-        
-        
-        guard let location = location else {return}
-        
-        // Do a check to see if location is in the US
-        
-        
-        
-        navigationItem.title = location.name
-        
-        ForecastController.getWeather(location.latlon) { (result) -> Void in
-            guard let result = result else { return }
-            self.forecast = result
-            
-            dispatch_async(dispatch_get_main_queue()) { () in
-                self.tableView.reloadData()
-            }
-        }
+//        guard let location = location else {return}
+//        
+//        // Do a check to see if location is in the US
+//        
+//        
+//        
+//        navigationItem.title = location.name
+//        
+//        ForecastController.getWeather(location.latlon) { (result) -> Void in
+//            guard let result = result else { return }
+//            self.forecast = result
+//            
+//            dispatch_async(dispatch_get_main_queue()) { () in
+//                self.tableView.tableHeaderView?.hidden = true
+//                self.tableView.reloadData()
+////                self.networkCallActivity.stopAnimating()
+//            }
+//        }
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -95,33 +104,36 @@ class ForecastTableVC: UITableViewController, CLLocationManagerDelegate {
         } else if status == CLAuthorizationStatus.AuthorizedWhenInUse {
             LocationController.sharedController.locationManager.requestLocation()
         }
-        
     }
     
     func updateCurrentLocation() {
-        //        location = LocationController.sharedController.currentLocation
-        
         if location?.name == "Current Location" {
-            
-            guard let location = location else {return}
-            // Do a check to see if location is in the US
-            navigationItem.title = location.name
-            
-            ForecastController.getWeather(location.latlon) { (result) -> Void in
-                guard let result = result else { return }
-                self.forecast = result
-                
-                dispatch_async(dispatch_get_main_queue()) { () in
-                    self.tableView.reloadData()
-                }
+            makeNetworkCall()
+        }
+    }
+    
+    func makeNetworkCall() {
+        guard let location = location else {return}
+        navigationItem.title = location.name
+        ForecastController.getWeather(location.latlon) { (result) -> Void in
+            guard let result = result else { return }
+            self.forecast = result
+            dispatch_async(dispatch_get_main_queue()) { () in
+                self.tableView.reloadData()
+                self.refreshControl?.endRefreshing()
+                UIApplication.sharedApplication().networkActivityIndicatorVisible = false
             }
         }
     }
     
+    @IBAction func userPulledRefresh(sender: AnyObject) {
+        makeNetworkCall()
+    }
+    
+    
     // MARK: - Table view data source
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        
         return 2
     }
     
@@ -258,8 +270,7 @@ class ForecastTableVC: UITableViewController, CLLocationManagerDelegate {
             tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
             tableView.endUpdates()
         }
-    }
-    
+    }    
     
     /*
      // Override to support conditional editing of the table view.

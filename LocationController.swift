@@ -96,8 +96,8 @@ class LocationController: NSObject, CLLocationManagerDelegate {
             }
         }
 
-        currentLocation = Location(name: "Current Location", location: location)
-        NSNotificationCenter.defaultCenter().postNotificationName("CurrentLocationNotification", object: nil)
+//        currentLocation = Location(name: "Current Location", location: location)
+//        NSNotificationCenter.defaultCenter().postNotificationName("CurrentLocationNotification", object: nil)
         
     }
     

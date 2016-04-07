@@ -15,6 +15,7 @@ class ForecastTableViewCell: UITableViewCell {
     @IBOutlet weak var basicDescriptionLabel: UILabel!
     @IBOutlet weak var tempLabel: UILabel!
     @IBOutlet weak var detailDescriptionLabel: UILabel!
+    @IBOutlet weak var forecastBackgroundImage: UIImageView!
 
     override func awakeFromNib() {
         super.awakeFromNib()
