@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		961F67661CA9E0A3005295B4 /* LocationTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961F67651CA9E0A3005295B4 /* LocationTableVC.swift */; };
-		9634EF691CAF061A00997560 /* MapVC deprecated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9634EF681CAF061A00997560 /* MapVC deprecated.swift */; };
 		9634EF6B1CAF062600997560 /* MapController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9634EF6A1CAF062600997560 /* MapController.swift */; };
 		964647691CADE43700BC9986 /* CurrentLocationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964647681CADE43700BC9986 /* CurrentLocationTableViewCell.swift */; };
 		9646476B1CADE45300BC9986 /* SavedLocationsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9646476A1CADE45300BC9986 /* SavedLocationsTableViewCell.swift */; };
@@ -31,7 +30,6 @@
 
 /* Begin PBXFileReference section */
 		961F67651CA9E0A3005295B4 /* LocationTableVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationTableVC.swift; sourceTree = "<group>"; };
-		9634EF681CAF061A00997560 /* MapVC deprecated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MapVC deprecated.swift"; sourceTree = "<group>"; };
 		9634EF6A1CAF062600997560 /* MapController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapController.swift; sourceTree = "<group>"; };
 		964647681CADE43700BC9986 /* CurrentLocationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentLocationTableViewCell.swift; sourceTree = "<group>"; };
 		9646476A1CADE45300BC9986 /* SavedLocationsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SavedLocationsTableViewCell.swift; path = ../SavedLocationsTableViewCell.swift; sourceTree = "<group>"; };
@@ -90,7 +88,6 @@
 			isa = PBXGroup;
 			children = (
 				969255ED1CB318C100C05045 /* LocationSearchTableVC.swift */,
-				9634EF681CAF061A00997560 /* MapVC deprecated.swift */,
 				969255EB1CB3182800C05045 /* MapVC.swift */,
 				961F67651CA9E0A3005295B4 /* LocationTableVC.swift */,
 				96C9E8891CA1B24E00ED1E88 /* ForecastTableVC.swift */,
@@ -223,7 +220,6 @@
 				96B0D0511CA5B68D0022413B /* Location.swift in Sources */,
 				96C9E8921CA1F11B00ED1E88 /* ForecastTableViewCell.swift in Sources */,
 				96C9E8901CA1DD1500ED1E88 /* ForecastController.swift in Sources */,
-				9634EF691CAF061A00997560 /* MapVC deprecated.swift in Sources */,
 				96CDE2251CA489B700D626B6 /* CurrentWeatherTableViewCell.swift in Sources */,
 				969255EC1CB3182800C05045 /* MapVC.swift in Sources */,
 				969255EE1CB318C100C05045 /* LocationSearchTableVC.swift in Sources */,

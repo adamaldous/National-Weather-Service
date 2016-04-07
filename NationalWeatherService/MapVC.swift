@@ -16,6 +16,7 @@ class MapVC: UIViewController, MKMapViewDelegate {
     var resultSearchController: UISearchController? = nil
     var tappedPin: MKPointAnnotation? = nil
     var placemark: MKPlacemark? = nil
+    var geocoder: CLGeocoder = CLGeocoder()
     
     
     override func viewDidLoad() {
@@ -72,17 +73,44 @@ class MapVC: UIViewController, MKMapViewDelegate {
         
         // cache the pin
         tappedPin = placemark
+        let location = CLLocation(latitude: placemark.coordinate.latitude, longitude: placemark.coordinate.longitude)
+        var title = ""
+        self.geocoder.reverseGeocodeLocation(location) { (placemarks, error) in
+            if let error = error {
+                title = "Unknown location"
+                print(error)
+            } else {
+                if let placemarks = placemarks {
+                    if placemarks.count > 0 {
+                        let topResult: CLPlacemark = placemarks[0]
+                        if let country = topResult.country {
+                            if country != "United States" {
+                                return
+                            }
+                        }
+                        if let city = topResult.locality, let state = topResult.administrativeArea {
+                            title = "\(city), \(state)"
+                        } else {
+                            title = "Unknown location"
+                        }
+                        
+                            self.mapView.removeAnnotations(self.mapView.annotations)
+                            let annotation = MKPointAnnotation()
+                            annotation.coordinate = placemark.coordinate
+                            annotation.title = title
+                            self.mapView.addAnnotation(annotation)
+                            let span = MKCoordinateSpanMake(0.05, 0.05)
+                            let region = MKCoordinateRegionMake(placemark.coordinate, span)
+                            self.mapView.setRegion(region, animated: true)
+                            self.mapView.selectAnnotation(annotation, animated: true)
+                        
+                    }
+                }
+            }
+        }
         
         // clear existing pins
-        mapView.removeAnnotations(mapView.annotations)
-        let annotation = MKPointAnnotation()
-        annotation.coordinate = placemark.coordinate
-        annotation.title = String(placemark.coordinate.latitude)
-        mapView.addAnnotation(annotation)
-        let span = MKCoordinateSpanMake(0.05, 0.05)
-        let region = MKCoordinateRegionMake(placemark.coordinate, span)
-        mapView.setRegion(region, animated: true)
-        mapView.selectAnnotation(annotation, animated: true)
+        
     }
     
     func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
@@ -104,7 +132,6 @@ class MapVC: UIViewController, MKMapViewDelegate {
             view.canShowCallout = true
             view.calloutOffset = CGPoint(x: -5, y: 5)
             view.rightCalloutAccessoryView = UIButton(type: UIButtonType.DetailDisclosure)
-            //            return nil
         }
         return view
     }
@@ -165,7 +192,7 @@ class MapVC: UIViewController, MKMapViewDelegate {
 extension MapVC: CLLocationManagerDelegate {
     func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
         if status == .AuthorizedWhenInUse {
-//            locationManager.requestLocation()
+            //            locationManager.requestLocation()
         }
     }
     
@@ -188,6 +215,12 @@ extension MapVC: HandleMapSearch {
         // cache the pin
         self.placemark = placemark
         
+        if let country = placemark.country {
+            if country != "United States" {
+                return
+            }
+        }
+        
         // clear existing pins
         mapView.removeAnnotations(mapView.annotations)
         let annotation = MKPointAnnotation()
@@ -195,7 +228,7 @@ extension MapVC: HandleMapSearch {
         annotation.title = placemark.name
         if let city = placemark.locality,
             let state = placemark.administrativeArea {
-            annotation.subtitle = "\(city) \(state)"
+            annotation.subtitle = "\(city), \(state)"
         }
         mapView.addAnnotation(annotation)
         let span = MKCoordinateSpanMake(0.05, 0.05)
