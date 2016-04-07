@@ -18,6 +18,7 @@ class LocationController: NSObject, CLLocationManagerDelegate {
     var currentLocation: Location?
     static let sharedController = LocationController()
     var delegate: LocationControllerDelegate?
+    var geocoder: CLGeocoder = CLGeocoder()
     
     override init() {
         self.locations = []
@@ -75,6 +76,26 @@ class LocationController: NSObject, CLLocationManagerDelegate {
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location = locations.last else {delegate?.locationChanged(nil); return}
 //        delegate?.locationChanged(location)
+        
+        self.geocoder.reverseGeocodeLocation(location) { (placemarks, error) in
+            if let error = error {
+                print(error)
+            } else {
+                if let placemarks = placemarks {
+                    if placemarks.count > 0 {
+                        let topResult: CLPlacemark = placemarks[0]
+                        if let country = topResult.country {
+                            if country != "United States" {
+                                return
+                            }
+                            self.currentLocation = Location(name: "Current Location", location: location)
+                            NSNotificationCenter.defaultCenter().postNotificationName("CurrentLocationNotification", object: nil)
+                        }
+                    }
+                }
+            }
+        }
+
         currentLocation = Location(name: "Current Location", location: location)
         NSNotificationCenter.defaultCenter().postNotificationName("CurrentLocationNotification", object: nil)
         
