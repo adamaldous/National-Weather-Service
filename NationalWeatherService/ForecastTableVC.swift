@@ -46,13 +46,13 @@ class ForecastTableVC: UITableViewController, CLLocationManagerDelegate {
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ForecastTableVC.updateCurrentLocation), name: "CurrentLocationNotification", object: nil)
         
-//        let status = CLLocationManager.authorizationStatus()
-//        if status == CLAuthorizationStatus.NotDetermined {
-//            self.locationManager.requestWhenInUseAuthorization()
-//        } else if status == CLAuthorizationStatus.Denied {
-//            self.locationManager.requestWhenInUseAuthorization()
-//        }
-//        LocationController.sharedController.locationManager.requestLocation()
+        //        let status = CLLocationManager.authorizationStatus()
+        //        if status == CLAuthorizationStatus.NotDetermined {
+        //            self.locationManager.requestWhenInUseAuthorization()
+        //        } else if status == CLAuthorizationStatus.Denied {
+        //            self.locationManager.requestWhenInUseAuthorization()
+        //        }
+        //        LocationController.sharedController.locationManager.requestLocation()
         
         
     }
@@ -72,7 +72,7 @@ class ForecastTableVC: UITableViewController, CLLocationManagerDelegate {
         
         // Do a check to see if location is in the US
         
-
+        
         
         navigationItem.title = location.name
         
@@ -95,11 +95,11 @@ class ForecastTableVC: UITableViewController, CLLocationManagerDelegate {
         } else if status == CLAuthorizationStatus.AuthorizedWhenInUse {
             LocationController.sharedController.locationManager.requestLocation()
         }
-
+        
     }
     
     func updateCurrentLocation() {
-//        location = LocationController.sharedController.currentLocation
+        //        location = LocationController.sharedController.currentLocation
         
         if location?.name == "Current Location" {
             
@@ -162,13 +162,13 @@ class ForecastTableVC: UITableViewController, CLLocationManagerDelegate {
                 if forecast.day[0].containsString("Tonight") || forecast.day[indexPath.row].containsString(" Night") {
                     cell.backgroundColor = UIColor.dayColor()
                     cell.backgroundColor = UIColor.currrentColor()
-
-//                    cell.currentTempLabel.textColor = UIColor.blueColor()
+                    
+                    //                    cell.currentTempLabel.textColor = UIColor.blueColor()
                 } else {
                     cell.backgroundColor = UIColor.nightColor()
                     cell.backgroundColor = UIColor.currrentColor()
-
-//                    cell.currentTempLabel.textColor = UIColor.redColor()
+                    
+                    //                    cell.currentTempLabel.textColor = UIColor.redColor()
                 }
                 
                 cell.currentTempLabel.text = "\(forecast.currentTemp)°F"
@@ -181,12 +181,16 @@ class ForecastTableVC: UITableViewController, CLLocationManagerDelegate {
                 cell.humidityLabel.text = "Humidity: \(forecast.humidity)%"
                 cell.lastUpdatedLabel.text = "Last Observed: \(forecast.lastUpdated) at \(forecast.observationName)"
                 
-                ForecastController.getIcon(kCurrentWeatherImage + forecast.currentImageString, completion: { (image) in
-                    
-                    dispatch_async(dispatch_get_main_queue()) { () in
-                        cell.currentWeatherImage.image = image
-                    }
-                })
+                if forecast.currentImageString == "NULL" {
+                    cell.currentWeatherImage.image = UIImage(named: "Location")
+                } else {
+                    ForecastController.getIcon(kCurrentWeatherImage + forecast.currentImageString, completion: { (image) in
+                        
+                        dispatch_async(dispatch_get_main_queue()) { () in
+                            cell.currentWeatherImage.image = image
+                        }
+                    })
+                }
             }
             
             return cell
