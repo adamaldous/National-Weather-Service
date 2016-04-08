@@ -94,15 +94,15 @@ class MapVC: UIViewController, MKMapViewDelegate {
                             title = "Unknown location"
                         }
                         
-                            self.mapView.removeAnnotations(self.mapView.annotations)
-                            let annotation = MKPointAnnotation()
-                            annotation.coordinate = placemark.coordinate
-                            annotation.title = title
-                            self.mapView.addAnnotation(annotation)
-                            let span = MKCoordinateSpanMake(0.05, 0.05)
-                            let region = MKCoordinateRegionMake(placemark.coordinate, span)
-                            self.mapView.setRegion(region, animated: true)
-                            self.mapView.selectAnnotation(annotation, animated: true)
+                        self.mapView.removeAnnotations(self.mapView.annotations)
+                        let annotation = MKPointAnnotation()
+                        annotation.coordinate = placemark.coordinate
+                        annotation.title = title
+                        self.mapView.addAnnotation(annotation)
+                        let span = MKCoordinateSpanMake(0.05, 0.05)
+                        let region = MKCoordinateRegionMake(placemark.coordinate, span)
+                        self.mapView.setRegion(region, animated: true)
+                        self.mapView.selectAnnotation(annotation, animated: true)
                         
                     }
                 }
@@ -149,23 +149,25 @@ class MapVC: UIViewController, MKMapViewDelegate {
         let action = UIAlertAction(title: "Save", style: .Default) { (_) in
             let textField = alert.textFields![0] as UITextField
             if let text = textField.text {
-                
-                if let tappedPin = self.tappedPin {
-                    let location = Location(name: text, location: CLLocation(latitude: tappedPin.coordinate.latitude, longitude: tappedPin.coordinate.longitude))
-                    LocationController.sharedController.addLocation(location)
-                    (self.navigationController?.viewControllers.first as? LocationTableVC)?.tableView.reloadData()
-                    
-                } else {
-                    if let placemark = self.placemark
-                    {
-                        let location = Location(name: text, location: CLLocation(latitude: placemark.coordinate.latitude, longitude: placemark.coordinate.longitude))
+                if text != "" {
+                    if let tappedPin = self.tappedPin {
+                        let location = Location(name: text, location: CLLocation(latitude: tappedPin.coordinate.latitude, longitude: tappedPin.coordinate.longitude))
                         LocationController.sharedController.addLocation(location)
                         (self.navigationController?.viewControllers.first as? LocationTableVC)?.tableView.reloadData()
+                        
+                    } else {
+                        if let placemark = self.placemark
+                        {
+                            let location = Location(name: text, location: CLLocation(latitude: placemark.coordinate.latitude, longitude: placemark.coordinate.longitude))
+                            LocationController.sharedController.addLocation(location)
+                            (self.navigationController?.viewControllers.first as? LocationTableVC)?.tableView.reloadData()
+                        }
                     }
+                    self.navigationController?.popViewControllerAnimated(true)
+                } else {
+                    self.presentViewController(alert, animated: true, completion: nil)
                 }
             }
-            self.navigationController?.popViewControllerAnimated(true)
-            
         }
         let cancel = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
         alert.addAction(action)
