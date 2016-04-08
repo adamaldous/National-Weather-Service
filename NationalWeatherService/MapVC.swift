@@ -89,7 +89,7 @@ class MapVC: UIViewController, MKMapViewDelegate {
                         if let city = topResult.locality, let state = topResult.administrativeArea {
                             title = "\(city), \(state)"
                         } else {
-                            title = "Unknown location"
+                            return
                         }
                         
                         self.mapView.removeAnnotations(self.mapView.annotations)
@@ -220,6 +220,8 @@ extension MapVC: HandleMapSearch {
         if let city = placemark.locality,
             let state = placemark.administrativeArea {
             annotation.subtitle = "\(city), \(state)"
+        } else {
+            return
         }
         mapView.addAnnotation(annotation)
         let span = MKCoordinateSpanMake(0.05, 0.05)
