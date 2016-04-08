@@ -27,10 +27,6 @@ class LocationController: NSObject, CLLocationManagerDelegate {
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(LocationController.requestLocation), name: UIApplicationDidBecomeActiveNotification, object: nil)
-        
-        //        self.saveToPersistentStorage()
-        
-        //        self.loadFromPersistentStorage()
     }
     
     func requestLocation() {

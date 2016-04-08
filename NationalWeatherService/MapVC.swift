@@ -55,7 +55,6 @@ class MapVC: UIViewController, MKMapViewDelegate {
         // Dispose of any resources that can be recreated.
     }
     
-    
     func addAnnotation(gestureRecognizer:UIGestureRecognizer){
         if gestureRecognizer.state == UIGestureRecognizerState.Began {
             
@@ -67,7 +66,6 @@ class MapVC: UIViewController, MKMapViewDelegate {
             
         }
     }
-    
     
     func dropPinZoomInTap(placemark: MKPointAnnotation){
         
@@ -108,9 +106,6 @@ class MapVC: UIViewController, MKMapViewDelegate {
                 }
             }
         }
-        
-        // clear existing pins
-        
     }
     
     func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
@@ -194,16 +189,10 @@ class MapVC: UIViewController, MKMapViewDelegate {
 extension MapVC: CLLocationManagerDelegate {
     func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
         if status == .AuthorizedWhenInUse {
-            //            locationManager.requestLocation()
         }
     }
     
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        //        if let location = locations.first {
-        //            let span = MKCoordinateSpanMake(0.05, 0.05)
-        //            let region = MKCoordinateRegion(center: location.coordinate, span: span)
-        //            mapView.setRegion(region, animated: true)
-        //        }
     }
     
     func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {

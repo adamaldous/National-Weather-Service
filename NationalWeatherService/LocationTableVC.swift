@@ -35,17 +35,10 @@ class LocationTableVC: UITableViewController, CLLocationManagerDelegate, Locatio
         }
     }
     
-    //    let location1 = Location(name: "Home", location: CLLocation(latitude: 40.6561, longitude: -111.835))
-    //    let location2 = Location(name: "Snowbird", location: CLLocation(latitude: 40.5819, longitude: -111.6544))
-    //    let location3 = Location(name: "Palm Springs", location: CLLocation(latitude: 33.8285, longitude: -116.5067))
-    
     internal var selectedLocation: Location?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        //        LocationController.sharedController.locationManager.requestLocation()
-        //        self.locations = [location1, location2, location3]
         
     }
     
@@ -124,11 +117,6 @@ class LocationTableVC: UITableViewController, CLLocationManagerDelegate, Locatio
                     tableView.reloadData()
                 }
             }
-            
-            //            let person = PersonController.sharedController.people[indexPath.row]
-            //            PersonController.sharedController.removePerson(person)
-            //            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-            //            tableView.reloadData()
         }
     }
 }

@@ -19,7 +19,8 @@ class ForecastTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        
+        self.forecastBackgroundImage.layer.cornerRadius = 8
     }
 
     override func setSelected(selected: Bool, animated: Bool) {
