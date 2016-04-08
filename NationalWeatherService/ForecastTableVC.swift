@@ -89,6 +89,8 @@ class ForecastTableVC: UITableViewController, CLLocationManagerDelegate, whenCel
     func makeNetworkCall() {
         
         guard let location = location else {return}
+        forecast?.basicDescription = []
+        self.tableView.reloadData()
         self.navigationController?.view.addSubview(loadingView)
         navigationItem.title = location.name
         UIApplication.sharedApplication().networkActivityIndicatorVisible = true
