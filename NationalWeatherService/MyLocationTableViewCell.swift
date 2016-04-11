@@ -8,11 +8,14 @@
 
 import UIKit
 
-class CurrentLocationTableViewCell: UITableViewCell {
+class MyLocationTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var myLocationView: UIView!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        
+        self.myLocationView.layer.cornerRadius = 8
     }
 
     override func setSelected(selected: Bool, animated: Bool) {
@@ -20,5 +23,4 @@ class CurrentLocationTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-
 }

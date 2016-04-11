@@ -114,8 +114,6 @@ class ForecastTableVC: UITableViewController, CLLocationManagerDelegate, whenCel
         }
     }
     
-    
-    
     // MARK: - Table view data source
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -143,6 +141,7 @@ class ForecastTableVC: UITableViewController, CLLocationManagerDelegate, whenCel
             }
         }
     }
+    
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         if indexPath.section == 0 {
@@ -162,11 +161,23 @@ class ForecastTableVC: UITableViewController, CLLocationManagerDelegate, whenCel
                 cell.backgroundColor = UIColor.currrentColor()
                 cell.currentTempLabel.text = "\(forecast.currentTemp)"
                 cell.currentBasicDescriptionLabel.text = forecast.currentBasicDescription
-                cell.windLabel.text = "Wind: \(forecast.windDirection) at \(forecast.windSpeed) MPH"
-                cell.barometerLabel.text = "Barometer: \(forecast.barometer) in"
-                cell.dewpointLabel.text = "Dewpoint: \(forecast.dewpoint)°F"
-                cell.windChillLabel.text = "Wind Chill: \(forecast.windChill)°F"
-                cell.visibilityLabel.text = "Visibility: \(forecast.visibility) mi"
+                cell.windLabel.text = "Wind: \(forecast.windDirection) \(forecast.windSpeed) MPH"
+                if forecast.barometer != "NA" {
+                    cell.barometerLabel.text = "Barometer: \(forecast.barometer) in"
+                } else {
+                    cell.barometerLabel.text = "Barometer: --"
+                }
+                cell.dewpointLabel.text = "Dewpoint: \(forecast.dewpoint)°"
+                if forecast.windChill != "NA" {
+                    cell.windChillLabel.text = "Wind Chill: \(forecast.windChill)°"
+                } else {
+                    cell.windChillLabel.text = "Wind Chill: --"
+                }
+                if forecast.visibility != "NA" {
+                    cell.visibilityLabel.text = "Visibility: \(forecast.visibility) mi"
+                } else {
+                    cell.visibilityLabel.text = "Visibility: --"
+                }
                 cell.humidityLabel.text = "Humidity: \(forecast.humidity)%"
                 cell.lastUpdatedLabel.text = "Last Observed: \(forecast.lastUpdated) at \(forecast.observationName)"
                 

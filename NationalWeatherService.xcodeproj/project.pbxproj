@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		961F67661CA9E0A3005295B4 /* LocationTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961F67651CA9E0A3005295B4 /* LocationTableVC.swift */; };
 		9634EF6B1CAF062600997560 /* MapController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9634EF6A1CAF062600997560 /* MapController.swift */; };
-		964647691CADE43700BC9986 /* CurrentLocationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964647681CADE43700BC9986 /* CurrentLocationTableViewCell.swift */; };
+		964647691CADE43700BC9986 /* MyLocationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964647681CADE43700BC9986 /* MyLocationTableViewCell.swift */; };
 		9646476B1CADE45300BC9986 /* SavedLocationsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9646476A1CADE45300BC9986 /* SavedLocationsTableViewCell.swift */; };
 		969255EC1CB3182800C05045 /* MapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969255EB1CB3182800C05045 /* MapVC.swift */; };
 		969255EE1CB318C100C05045 /* LocationSearchTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969255ED1CB318C100C05045 /* LocationSearchTableVC.swift */; };
@@ -31,7 +31,7 @@
 /* Begin PBXFileReference section */
 		961F67651CA9E0A3005295B4 /* LocationTableVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationTableVC.swift; sourceTree = "<group>"; };
 		9634EF6A1CAF062600997560 /* MapController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapController.swift; sourceTree = "<group>"; };
-		964647681CADE43700BC9986 /* CurrentLocationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentLocationTableViewCell.swift; sourceTree = "<group>"; };
+		964647681CADE43700BC9986 /* MyLocationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyLocationTableViewCell.swift; sourceTree = "<group>"; };
 		9646476A1CADE45300BC9986 /* SavedLocationsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SavedLocationsTableViewCell.swift; path = ../SavedLocationsTableViewCell.swift; sourceTree = "<group>"; };
 		969255EB1CB3182800C05045 /* MapVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapVC.swift; sourceTree = "<group>"; };
 		969255ED1CB318C100C05045 /* LocationSearchTableVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationSearchTableVC.swift; sourceTree = "<group>"; };
@@ -98,7 +98,7 @@
 		96B0D0551CA5B7170022413B /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				964647681CADE43700BC9986 /* CurrentLocationTableViewCell.swift */,
+				964647681CADE43700BC9986 /* MyLocationTableViewCell.swift */,
 				9646476A1CADE45300BC9986 /* SavedLocationsTableViewCell.swift */,
 				96CDE2241CA489B700D626B6 /* CurrentWeatherTableViewCell.swift */,
 				96C9E8911CA1F11B00ED1E88 /* ForecastTableViewCell.swift */,
@@ -209,7 +209,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				964647691CADE43700BC9986 /* CurrentLocationTableViewCell.swift in Sources */,
+				964647691CADE43700BC9986 /* MyLocationTableViewCell.swift in Sources */,
 				96D588D61CAB0E9800EADFA3 /* LocationController.swift in Sources */,
 				96C9E88E1CA1BF8D00ED1E88 /* NetworkController.swift in Sources */,
 				96C9E88C1CA1BEDC00ED1E88 /* Forecast.swift in Sources */,
@@ -336,6 +336,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = NationalWeatherService/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.adamaldous.NationalWeatherService;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -347,6 +348,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = NationalWeatherService/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.adamaldous.NationalWeatherService;
 				PRODUCT_NAME = "$(TARGET_NAME)";

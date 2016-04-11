@@ -12,11 +12,11 @@ import CoreLocation
 class LocationTableVC: UITableViewController, CLLocationManagerDelegate, LocationControllerDelegate {
     
     var delegate : whenCellSelected? = nil
-
+    
     
     var location0: Location? {
         get {
-            if let locationDictionary = NSUserDefaults.standardUserDefaults().objectForKey("currentLocation") as? [String: AnyObject],
+            if let locationDictionary = NSUserDefaults.standardUserDefaults().objectForKey("myLocation") as? [String: AnyObject],
                 latitude = locationDictionary["lat"] as? CLLocationDegrees,
                 longitude = locationDictionary["lon"] as? CLLocationDegrees ,
                 name = locationDictionary["name"] as? String {
@@ -28,9 +28,9 @@ class LocationTableVC: UITableViewController, CLLocationManagerDelegate, Locatio
         set {
             if let location = newValue {
                 let locationDictionary = location.dictionaryCopy
-                NSUserDefaults.standardUserDefaults().setObject(locationDictionary, forKey: "currentLocation")
+                NSUserDefaults.standardUserDefaults().setObject(locationDictionary, forKey: "myLocation")
             } else {
-                NSUserDefaults.standardUserDefaults().removeObjectForKey("currentLocation")
+                NSUserDefaults.standardUserDefaults().removeObjectForKey("myLocation")
             }
         }
     }
@@ -57,12 +57,11 @@ class LocationTableVC: UITableViewController, CLLocationManagerDelegate, Locatio
     
     func locationChanged(location: CLLocation?) {
         if let location = location {
-            location0 = Location(name: "Current Location", location: CLLocation(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude))
+            location0 = Location(name: "My Location", location: CLLocation(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude))
         } else {
             LocationController.sharedController.locationManager.requestLocation()
         }
     }
-    
     
     // MARK: - Table view data source
     
@@ -82,15 +81,23 @@ class LocationTableVC: UITableViewController, CLLocationManagerDelegate, Locatio
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
             
-            let cell = tableView.dequeueReusableCellWithIdentifier("currentLocationCell", forIndexPath: indexPath)
+            let cell = tableView.dequeueReusableCellWithIdentifier("myLocationCell", forIndexPath: indexPath) as! MyLocationTableViewCell
             return cell
             
         } else {
             
-            let cell = tableView.dequeueReusableCellWithIdentifier("savedLocationsCell", forIndexPath: indexPath)
-            cell.textLabel?.text = LocationController.sharedController.locations[indexPath.row].name
+            let cell = tableView.dequeueReusableCellWithIdentifier("savedLocationsCell", forIndexPath: indexPath) as! SavedLocationsTableViewCell
+            cell.savedLocationLabel.text = LocationController.sharedController.locations[indexPath.row].name
             return cell
         }
+    }
+    
+    override func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 100
+    }
+    
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return UITableViewAutomaticDimension
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -108,9 +115,8 @@ class LocationTableVC: UITableViewController, CLLocationManagerDelegate, Locatio
     
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         
-        if editingStyle == .Delete {
-            
-            if indexPath.section != 0 {
+        if indexPath.section != 0 {
+            if editingStyle == .Delete {
                 selectedLocation = LocationController.sharedController.locations[indexPath.row]
                 if let location = selectedLocation {
                     LocationController.sharedController.removeLocation(location)

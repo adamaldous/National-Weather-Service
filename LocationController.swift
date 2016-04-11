@@ -84,7 +84,7 @@ class LocationController: NSObject, CLLocationManagerDelegate {
                             if country != "United States" {
                                 return
                             }
-                            self.currentLocation = Location(name: "Current Location", location: location)
+                            self.currentLocation = Location(name: "My Location", location: location)
                             NSNotificationCenter.defaultCenter().postNotificationName("CurrentLocationNotification", object: nil)
                         }
                     }
@@ -101,8 +101,6 @@ class LocationController: NSObject, CLLocationManagerDelegate {
         print("Location request failed with error: \(error)")
         delegate?.locationChanged(nil)
     }
-    
-    
 }
 
 protocol LocationControllerDelegate {

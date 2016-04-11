@@ -29,10 +29,7 @@ class Forecast {
     static let kDewpoint = "Dewp"
     static let kWindSpeed = "Winds"
     static let kWindDirection = "Windd"
-    
-    //    static let kHighTemp = "name"
-    //    static let kLowTemp = ""
-    
+        
     lazy var selected: [Bool] = self.basicDescription.map({_ in false })
     
     var cityName = ""
@@ -86,9 +83,6 @@ class Forecast {
             return "-"
         }
     }
-    
-    //    var highTemp: [Int] = []
-    //    var lowTemp: [Int] = []
     
     init?(jsonDictionary: [String : AnyObject]) {
         

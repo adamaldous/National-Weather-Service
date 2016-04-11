@@ -10,9 +10,13 @@ import UIKit
 
 class SavedLocationsTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var savedLocationLabel: UILabel!
+    @IBOutlet weak var savedLocationsView: UIView!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        
+        self.savedLocationsView.layer.cornerRadius = 8
     }
 
     override func setSelected(selected: Bool, animated: Bool) {

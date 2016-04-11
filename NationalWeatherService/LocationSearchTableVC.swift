@@ -128,7 +128,7 @@ class LocationSearchTableVC: UITableViewController {
 
 extension LocationSearchTableVC : UISearchResultsUpdating {
     func updateSearchResultsForSearchController(searchController: UISearchController) {
-        guard let mapView = mapView,
+        guard let _ = mapView,
             let searchBarText = searchController.searchBar.text else { return }
         let request = MKLocalSearchRequest()
         request.naturalLanguageQuery = searchBarText
