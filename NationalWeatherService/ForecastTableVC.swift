@@ -79,6 +79,10 @@ class ForecastTableVC: UITableViewController, CLLocationManagerDelegate, whenCel
         }
     }
     
+    override func viewWillDisappear(animated: Bool) {
+        self.loadingView.removeFromSuperview()
+    }
+    
     func updateCurrentLocation() {
         if location == nil {
             self.location = LocationController.sharedController.currentLocation

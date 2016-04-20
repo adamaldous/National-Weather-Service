@@ -18,7 +18,6 @@ class MapVC: UIViewController, MKMapViewDelegate {
     var placemark: MKPlacemark? = nil
     var geocoder: CLGeocoder = CLGeocoder()
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -170,6 +169,15 @@ class MapVC: UIViewController, MKMapViewDelegate {
         self.presentViewController(alert, animated: true, completion: nil)
     }
     
+    
+    @IBAction func mapLayerButtonTapped(sender: AnyObject) {
+        
+        if mapView.mapType == .Standard {
+            mapView.mapType =  .Hybrid
+        } else {
+            mapView.mapType =  .Standard
+        }
+    }
     
     
     /*
